@@ -10,4 +10,12 @@ export class Tensor {
       this.tensor = value;
     }
   }
+
+  toArray(): TensorArg {
+    if (Array.isArray(this.tensor)) {
+      return this.tensor.map(a => a.toArray());
+    } else {
+      return this.tensor;
+    }
+  }
 }
