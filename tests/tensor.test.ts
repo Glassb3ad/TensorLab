@@ -30,4 +30,20 @@ describe('Tensor constructor', () => {
     const tensor = new Tensor(1, []);
     expect(tensor.dimensions).toBe(undefined);
   });
+
+  test('4 place vector has dimension [4]', () => {
+    const tensor = new Tensor([1, 2, 3, 8], [4]);
+    expect(tensor.dimensions).toEqual([4]);
+  });
+
+  test('Matrix with 2 2-place vectirs has dimension [2,2]', () => {
+    const tensor = new Tensor(
+      [
+        [1, 2],
+        [3, 8],
+      ],
+      [2, 2],
+    );
+    expect(tensor.dimensions).toEqual([2, 2]);
+  });
 });
