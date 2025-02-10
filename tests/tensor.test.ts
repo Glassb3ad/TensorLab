@@ -25,4 +25,9 @@ describe('Tensor constructor', () => {
       [3, 8],
     ]);
   });
+
+  test('Scalar has dimensions undefined', () => {
+    const tensor = new Tensor(1, []);
+    expect(tensor.dimensions).toBe(undefined);
+  });
 });
