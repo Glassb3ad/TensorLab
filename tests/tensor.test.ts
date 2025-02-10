@@ -11,4 +11,15 @@ describe('Tensor constructor', () => {
     const tensor = new Tensor([1, 2, 3, 8]);
     expect(tensor.toArray()).toEqual([1, 2, 3, 8]);
   });
+
+  test('Create matrix', () => {
+    const tensor = new Tensor([
+      [1, 2],
+      [3, 8],
+    ]);
+    expect(tensor.toArray()).toEqual([
+      [1, 2],
+      [3, 8],
+    ]);
+  });
 });
