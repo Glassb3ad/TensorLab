@@ -2,10 +2,12 @@ type TensorArg = Array<TensorArg> | number;
 
 export class Tensor {
   tensor: Array<Tensor> | number;
+  dimensions?: Array<number>;
 
-  constructor(value: TensorArg) {
+  constructor(value: TensorArg, dimensions: Array<number>) {
     if (Array.isArray(value)) {
-      this.tensor = value.map(a => new Tensor(a));
+      this.dimensions = dimensions;
+      this.tensor = value.map(a => new Tensor(a, dimensions.slice(1)));
     } else {
       this.tensor = value;
     }
