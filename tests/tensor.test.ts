@@ -36,7 +36,7 @@ describe('Tensor constructor', () => {
     expect(tensor.dimensions).toEqual([4]);
   });
 
-  test('Matrix with 2 2-place vectirs has dimension [2,2]', () => {
+  test('Matrix with 2 2-place vectors has dimension [2,2]', () => {
     const tensor = new Tensor(
       [
         [1, 2],
@@ -45,5 +45,19 @@ describe('Tensor constructor', () => {
       [2, 2],
     );
     expect(tensor.dimensions).toEqual([2, 2]);
+  });
+
+  test('Vectors of [2,2] matrix have dimension [2]', () => {
+    const tensor = new Tensor(
+      [
+        [1, 2],
+        [3, 8],
+      ],
+      [2, 2],
+    );
+
+    (tensor.tensor as Array<Tensor>).forEach(vector => {
+      expect(vector.dimensions).toEqual([2]);
+    });
   });
 });
