@@ -6,6 +6,9 @@ export class Tensor {
 
   constructor(value: TensorArg, dimensions: Array<number>) {
     if (Array.isArray(value)) {
+      if (dimensions[0] !== value.length) {
+        throw new Error('initial value violates given dimension');
+      }
       this.dimensions = dimensions;
       this.tensor = value.map(a => new Tensor(a, dimensions.slice(1)));
     } else {
