@@ -96,4 +96,19 @@ describe('Test element-wise method', () => {
     const increasedByOne = Tensor.elementWise(tensor, a => a + 1);
     expect(increasedByOne.toArray()).toEqual([2, 3, 4, 5]);
   });
+
+  test('add 1 to matrix', () => {
+    const tensor = Tensor.createTensorFromArray(
+      [
+        [1, 2],
+        [3, 4],
+      ],
+      [2, 2],
+    );
+    const increasedByOne = Tensor.elementWise(tensor, a => a + 1);
+    expect(increasedByOne.toArray()).toEqual([
+      [2, 3],
+      [4, 5],
+    ]);
+  });
 });
