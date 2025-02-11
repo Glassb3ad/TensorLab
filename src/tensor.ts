@@ -16,7 +16,7 @@ export class Tensor {
       const tensor = value.map(a => Tensor.createTensorFromArray(a, dimensions.slice(1)));
       return new Tensor(tensor, dimensions);
     } else {
-      if (dimensions && dimensions.length !== 0) {
+      if (dimensions.length !== 0) {
         throw new Error('initial value violates given dimension');
       }
       return new Tensor(value, dimensions);
@@ -31,7 +31,7 @@ export class Tensor {
       const newTensor = tensor.tensor.map(a => Tensor.createTensorFromTensor(a, dimensions.slice(1)));
       return new Tensor(newTensor, dimensions);
     } else {
-      if (dimensions && dimensions.length !== 0) {
+      if (dimensions.length !== 0) {
         throw new Error('initial value violates given dimension');
       }
       return new Tensor(tensor.tensor, dimensions);
