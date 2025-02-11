@@ -1,4 +1,10 @@
+import { Tensor } from './tensor';
+
 export const createTresholdOperation =
-  (tresholdVal: number, aboveTreshold = 1, underTreshold = 0) =>
+  (treshold: number, aboveTreshold = 1, underTreshold = 0) =>
   (scalar: number): number =>
-    scalar >= tresholdVal ? aboveTreshold : underTreshold;
+    scalar >= treshold ? aboveTreshold : underTreshold;
+
+export const treshold = (tensor: Tensor, treshold: number, aboveTreshold?: number, underTreshold?: number): Tensor => {
+  return Tensor.elementWise(tensor, createTresholdOperation(treshold, aboveTreshold, underTreshold));
+};

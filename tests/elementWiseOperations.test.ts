@@ -1,5 +1,6 @@
 import { expect, test, describe } from 'vitest';
-import { createTresholdOperation } from '../src/elementWiseOperations';
+import { createTresholdOperation, treshold } from '../src/elementWiseOperations';
+import { Tensor } from '../src/tensor';
 
 describe('Element-wise methods', () => {
   describe('Treshold', () => {
@@ -27,6 +28,21 @@ describe('Element-wise methods', () => {
         const scalar = tresholdOperation(0.2);
         expect(scalar).toBe(0.11);
       });
+    });
+
+    test('treshold matrix', () => {
+      const tensor = Tensor.createTensorFromArray(
+        [
+          [1, 4],
+          [3, 1],
+        ],
+        [2, 2],
+      );
+      const newTensor = treshold(tensor, 2);
+      expect(newTensor.toArray()).toEqual([
+        [0, 1],
+        [1, 0],
+      ]);
     });
   });
 });
