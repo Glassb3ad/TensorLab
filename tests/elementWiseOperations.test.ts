@@ -8,5 +8,11 @@ describe('Element-wise methods', () => {
       const scalar = tresholdFunc(0.2);
       expect(scalar).toBe(0);
     });
+
+    test('Get 1 when treshold is 0.5 and scalar 0.7', () => {
+      const tresholdFunc = treshold(0.5);
+      const scalar = tresholdFunc(0.7);
+      expect(scalar).toBe(1);
+    });
   });
 });
