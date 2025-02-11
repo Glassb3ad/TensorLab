@@ -2,22 +2,26 @@ type TensorArg = Array<TensorArg> | number;
 
 export class Tensor {
   tensor: Array<Tensor> | number;
-  dimensions?: Array<number>;
+  dimensions: Array<number>;
 
-  constructor(value: TensorArg, dimensions: Array<number>) {
+  private constructor(tensor: Array<Tensor> | number, dimensions: Array<number>) {
+    (this.tensor = tensor), (this.dimensions = dimensions);
+  }
+
+  static createTensorFromArray = (value: TensorArg, dimensions: Array<number>): Tensor => {
     if (Array.isArray(value)) {
       if (dimensions[0] !== value.length) {
         throw new Error('initial value violates given dimension');
       }
-      this.dimensions = dimensions;
-      this.tensor = value.map(a => new Tensor(a, dimensions.slice(1)));
+      const tensor = value.map(a => Tensor.createTensorFromArray(a, dimensions.slice(1)));
+      return new Tensor(tensor, dimensions);
     } else {
       if (dimensions && dimensions.length !== 0) {
         throw new Error('initial value violates given dimension');
       }
-      this.tensor = value;
+      return new Tensor(value, dimensions);
     }
-  }
+  };
 
   toArray(): TensorArg {
     if (Array.isArray(this.tensor)) {
@@ -26,4 +30,14 @@ export class Tensor {
       return this.tensor;
     }
   }
+
+  // static elementWise(tensor: Tensor, operation: (arg: number) => number): Tensor {
+  //   if (Array.isArray(tensor.tensor)) {
+  //     return new Tensor(
+  //       tensor.tensor.map(t => Tensor.elementWise(t, operation)),
+  //       tensor.dimensions,
+  //     );
+  //   }
+  //   return new Tensor(operation(tensor.tensor), []);
+  // }
 }
