@@ -20,5 +20,11 @@ describe('Element-wise methods', () => {
       const scalar = tresholdFunc(0.7);
       expect(scalar).toBe(0.99);
     });
+
+    test('Get underTreshold value when scalar is under treshold', () => {
+      const tresholdFunc = treshold(0.5, 0.99, 0.11);
+      const scalar = tresholdFunc(0.2);
+      expect(scalar).toBe(0.11);
+    });
   });
 });
