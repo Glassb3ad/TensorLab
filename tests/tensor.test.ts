@@ -90,4 +90,10 @@ describe('Test element-wise method', () => {
     Tensor.elementWise(tensor, a => a + 1);
     expect(tensor.tensor).toBe(1);
   });
+
+  test('add 1 to vector', () => {
+    const tensor = Tensor.createTensorFromArray([1, 2, 3, 4], [4]);
+    const increasedByOne = Tensor.elementWise(tensor, a => a + 1);
+    expect(increasedByOne.toArray()).toEqual([2, 3, 4, 5]);
+  });
 });
