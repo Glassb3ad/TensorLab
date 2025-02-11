@@ -61,7 +61,11 @@ describe('Tensor constructor', () => {
     });
   });
 
-  test('Trying to create [5] vector with dimension [7] throws error', () => {
+  test('Trying to create scalar with dimension [7] throws error', () => {
+    expect(() => new Tensor(2, [7])).toThrowError('initial value violates given dimension');
+  });
+
+  test('Trying to create [5] vector with dimension [8] throws error', () => {
     expect(() => new Tensor([1, 2, 3, 4, 5], [8])).toThrowError('initial value violates given dimension');
   });
 
