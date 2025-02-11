@@ -23,6 +23,21 @@ export class Tensor {
     }
   };
 
+  static createTensorFromTensor = (tensor: Tensor, dimensions: Array<number>): Tensor => {
+    if (Array.isArray(tensor.tensor)) {
+      if (dimensions[0] !== tensor.tensor.length) {
+        throw new Error('initial value violates given dimension');
+      }
+      const newTensor = tensor.tensor.map(a => Tensor.createTensorFromTensor(a, dimensions.slice(1)));
+      return new Tensor(newTensor, dimensions);
+    } else {
+      if (dimensions && dimensions.length !== 0) {
+        throw new Error('initial value violates given dimension');
+      }
+      return new Tensor(tensor.tensor, dimensions);
+    }
+  };
+
   toArray(): TensorArg {
     if (Array.isArray(this.tensor)) {
       return this.tensor.map(a => a.toArray());
@@ -31,13 +46,13 @@ export class Tensor {
     }
   }
 
-  // static elementWise(tensor: Tensor, operation: (arg: number) => number): Tensor {
-  //   if (Array.isArray(tensor.tensor)) {
-  //     return new Tensor(
-  //       tensor.tensor.map(t => Tensor.elementWise(t, operation)),
-  //       tensor.dimensions,
-  //     );
-  //   }
-  //   return new Tensor(operation(tensor.tensor), []);
-  // }
+  static elementWise(tensor: Tensor, operation: (arg: number) => number): Tensor {
+    if (Array.isArray(tensor.tensor)) {
+      return new Tensor(
+        tensor.tensor.map(t => Tensor.elementWise(t, operation)),
+        tensor.dimensions,
+      );
+    }
+    return new Tensor(operation(tensor.tensor), []);
+  }
 }

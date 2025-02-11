@@ -77,3 +77,17 @@ describe('Tensor constructor', () => {
     );
   });
 });
+
+describe('Test element-wise method', () => {
+  test('add 1 to scalar', () => {
+    const tensor = Tensor.createTensorFromArray(1, []);
+    const increasedByOne = Tensor.elementWise(tensor, a => a + 1);
+    expect(increasedByOne.tensor).toBe(2);
+  });
+
+  test('add 1 to scalar does not mutate the original scalaer', () => {
+    const tensor = Tensor.createTensorFromArray(1, []);
+    Tensor.elementWise(tensor, a => a + 1);
+    expect(tensor.tensor).toBe(1);
+  });
+});
