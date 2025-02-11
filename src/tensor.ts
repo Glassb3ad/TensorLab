@@ -8,18 +8,18 @@ export class Tensor {
     (this.tensor = tensor), (this.dimensions = dimensions);
   }
 
-  static createTensorFromArray = (value: TensorArg, dimensions: Array<number>): Tensor => {
-    if (Array.isArray(value)) {
-      if (dimensions[0] !== value.length) {
+  static createTensorFromArray = (tensor: TensorArg, dimensions: Array<number>): Tensor => {
+    if (Array.isArray(tensor)) {
+      if (dimensions[0] !== tensor.length) {
         throw new Error('initial value violates given dimension');
       }
-      const tensor = value.map(a => Tensor.createTensorFromArray(a, dimensions.slice(1)));
-      return new Tensor(tensor, dimensions);
+      const newTensor = tensor.map(a => Tensor.createTensorFromArray(a, dimensions.slice(1)));
+      return new Tensor(newTensor, dimensions);
     } else {
       if (dimensions.length !== 0) {
         throw new Error('initial value violates given dimension');
       }
-      return new Tensor(value, dimensions);
+      return new Tensor(tensor, dimensions);
     }
   };
 
