@@ -64,4 +64,8 @@ describe('Tensor constructor', () => {
   test('Trying to create [5] vector with dimension [7] throws error', () => {
     expect(() => new Tensor([1, 2, 3, 4, 5], [8])).toThrowError('initial value violates given dimension');
   });
+
+  test('Trying to create matrix with vectors of different lengths with dimension [2,2] throws error', () => {
+    expect(() => new Tensor([[1, 2], [3]], [2, 2])).toThrowError('initial value violates given dimension');
+  });
 });
