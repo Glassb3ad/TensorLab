@@ -44,5 +44,20 @@ describe('Element-wise methods', () => {
         [1, 0],
       ]);
     });
+
+    test('treshold matrix with custom values', () => {
+      const tensor = Tensor.createTensorFromArray(
+        [
+          [1, 4],
+          [3, 1],
+        ],
+        [2, 2],
+      );
+      const newTensor = treshold(tensor, 2, 1.0, 0.1);
+      expect(newTensor.toArray()).toEqual([
+        [0.1, 1.0],
+        [1.0, 0.1],
+      ]);
+    });
   });
 });
