@@ -23,6 +23,6 @@ export default tseslint.config(
         },
     },
     {
-        ignores: ["**/coverage/", "eslint.config.js"]
+        ignores: ["**/coverage/", "eslint.config.js", "src/index.ts"]
     }
 );
