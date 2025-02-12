@@ -209,6 +209,25 @@ describe('Tensor', () => {
       const scalar = Tensor.dotProduct(t1, t2);
       expect(scalar.tensor).toBe(10);
     });
+
+    test('dot product of matrices is sum of dot products of respective vectors', () => {
+      const t1 = Tensor.createTensorFromArray(
+        [
+          [1, 2],
+          [3, 4],
+        ],
+        [2, 2],
+      );
+      const t2 = Tensor.createTensorFromArray(
+        [
+          [2, 2],
+          [2, 2],
+        ],
+        [2, 2],
+      );
+      const scalar = Tensor.dotProduct(t1, t2);
+      expect(scalar.tensor).toBe(20);
+    });
   });
 
   // describe('convolution', () => {
