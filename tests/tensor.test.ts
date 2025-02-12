@@ -231,11 +231,18 @@ describe('Tensor', () => {
   });
 
   describe('convolution', () => {
-    test('convolution of two vectors of same length is vector with one member', () => {
+    test('convolution of two vectors with the same length', () => {
       const tensor = Tensor.createTensorFromArray([2, 3, 1], [3]);
       const kernel = Tensor.createTensorFromArray([1, 2, 3], [3]);
       const transformedTensor = Tensor.convolution(tensor, kernel);
       expect(transformedTensor.toArray()).toEqual([11]);
+    });
+
+    test('convolution of two vectors where kernel is shorter', () => {
+      const tensor = Tensor.createTensorFromArray([2, 3, 1], [3]);
+      const kernel = Tensor.createTensorFromArray([1, 2], [2]);
+      const transformedTensor = Tensor.convolution(tensor, kernel);
+      expect(transformedTensor.toArray()).toEqual([8, 5]);
     });
   });
 });

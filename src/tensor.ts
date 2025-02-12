@@ -73,6 +73,14 @@ export class Tensor {
   }
 
   static convolution(tensor: Tensor, kernel: Tensor) {
-    return new Tensor([Tensor.dotProduct(tensor, kernel)], [1]);
+    const kernelLength = kernel.dimensions[0];
+    const sliceCount = tensor.dimensions[0] - kernelLength + 1;
+    const slices = [...Array(sliceCount).keys()].map(
+      i => new Tensor((tensor.tensor as Array<Tensor>).slice(i, kernelLength + i), [kernelLength]),
+    );
+    return new Tensor(
+      slices.map(slice => Tensor.dotProduct(slice, kernel)),
+      [sliceCount],
+    );
   }
 }
