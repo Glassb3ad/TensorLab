@@ -5,7 +5,8 @@ export class Tensor {
   dimensions: Array<number>;
 
   private constructor(tensor: Array<Tensor> | number, dimensions: Array<number>) {
-    (this.tensor = tensor), (this.dimensions = dimensions);
+    this.tensor = tensor;
+    this.dimensions = dimensions;
   }
 
   static createTensorFromArray = (tensor: TensorArg, dimensions: Array<number>): Tensor => {
