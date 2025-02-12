@@ -195,6 +195,20 @@ describe('Tensor', () => {
       expect(scalar).toBeInstanceOf(Tensor);
       expect(scalar.dimensions).toEqual([]);
     });
+
+    test('dot product of scalars', () => {
+      const t1 = Tensor.createTensorFromArray(2, []);
+      const t2 = Tensor.createTensorFromArray(4, []);
+      const scalar = Tensor.dotProduct(t1, t2);
+      expect(scalar.tensor).toBe(8);
+    });
+
+    test('dot product of vectors is sum of dot products of respective scalars', () => {
+      const t1 = Tensor.createTensorFromArray([2, 3], [2]);
+      const t2 = Tensor.createTensorFromArray([2, 2], [2]);
+      const scalar = Tensor.dotProduct(t1, t2);
+      expect(scalar.tensor).toBe(10);
+    });
   });
 
   // describe('convolution', () => {
