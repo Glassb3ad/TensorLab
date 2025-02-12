@@ -230,19 +230,12 @@ describe('Tensor', () => {
     });
   });
 
-  // describe('convolution', () => {
-  //   test('convolution of two scalars', () => {
-  //     const tensor = Tensor.createTensorFromArray(2, []);
-  //     const kernel = Tensor.createTensorFromArray(3, []);
-  //     const transformedTensor = Tensor.convolution(tensor, kernel) as Tensor;
-  //     expect(transformedTensor.tensor).toBe(6);
-  //   });
-
-  //   test('convolution of two vectors', () => {
-  //     const tensor = Tensor.createTensorFromArray([2, 3], [2]);
-  //     const kernel = Tensor.createTensorFromArray([1, 2, 3], [3]);
-  //     const transformedTensor = Tensor.convolution(tensor, kernel);
-  //     expect(transformedTensor?.tensor).toEqual([8, 13]);
-  //   });
-  // });
+  describe('convolution', () => {
+    test('convolution of two vectors of same length is vector with one member', () => {
+      const tensor = Tensor.createTensorFromArray([2, 3, 1], [3]);
+      const kernel = Tensor.createTensorFromArray([1, 2, 3], [3]);
+      const transformedTensor = Tensor.convolution(tensor, kernel);
+      expect(transformedTensor.toArray()).toEqual([11]);
+    });
+  });
 });

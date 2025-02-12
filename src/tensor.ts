@@ -72,12 +72,7 @@ export class Tensor {
     return new Tensor((t1.tensor as number) * (t2.tensor as number), []);
   }
 
-  // static convolution(tensor: Tensor, kernel: Tensor) {
-  //   if (typeof tensor.tensor === 'number' && typeof kernel.tensor === 'number') {
-  //     return new Tensor(tensor.tensor * kernel.tensor, []);
-  //   }
-  //   if (tensor.dimensions.length === 1 && kernel.dimensions.length === 1) {
-  //     return new Tensor(tensor.tensor * kernel.tensor, []);
-  //   }
-  // }
+  static convolution(tensor: Tensor, kernel: Tensor) {
+    return new Tensor([Tensor.dotProduct(tensor, kernel)], [1]);
+  }
 }
