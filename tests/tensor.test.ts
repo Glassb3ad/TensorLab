@@ -187,6 +187,14 @@ describe('Tensor', () => {
       const t2 = Tensor.createTensorFromArray([1, 2, 3], [3]);
       expect(() => Tensor.dotProduct(t1, t2)).toThrowError('tensors must have same dimensions');
     });
+
+    test('dot product returns scalar', () => {
+      const t1 = Tensor.createTensorFromArray(2, []);
+      const t2 = Tensor.createTensorFromArray(4, []);
+      const scalar = Tensor.dotProduct(t1, t2);
+      expect(scalar).toBeInstanceOf(Tensor);
+      expect(scalar.dimensions).toEqual([]);
+    });
   });
 
   // describe('convolution', () => {

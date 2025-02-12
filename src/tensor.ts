@@ -61,6 +61,7 @@ export class Tensor {
     if (t1.dimensions[0] !== t2.dimensions[0]) {
       throw new Error('tensors must have same dimensions');
     }
+    return t1;
   }
 
   // static convolution(tensor: Tensor, kernel: Tensor) {
