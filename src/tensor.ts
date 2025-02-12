@@ -56,4 +56,23 @@ export class Tensor {
     }
     return new Tensor(operation(tensor.tensor), []);
   }
+
+  static dotProduct(t1: Tensor, t2: Tensor): Tensor {
+    if (t1.dimensions[0] !== t2.dimensions[0]) {
+      throw new Error('tensors must have same dimensions');
+    }
+    if (Array.isArray(t1.tensor) && Array.isArray(t2.tensor)) {
+      const tensorArray = t2.tensor;
+      const sum = t1.tensor.reduce(
+        (pre, cur, index) => (Tensor.dotProduct(cur, tensorArray[index]).tensor as number) + pre,
+        0,
+      );
+      return new Tensor(sum, []);
+    }
+    return new Tensor((t1.tensor as number) * (t2.tensor as number), []);
+  }
+
+  static convolution(tensor: Tensor, kernel: Tensor) {
+    return new Tensor([Tensor.dotProduct(tensor, kernel)], [1]);
+  }
 }

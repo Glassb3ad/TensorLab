@@ -180,4 +180,62 @@ describe('Tensor', () => {
       ]);
     });
   });
+
+  describe('dot product', () => {
+    test('if tensors have different dimensions throw error', () => {
+      const t1 = Tensor.createTensorFromArray([1, 2], [2]);
+      const t2 = Tensor.createTensorFromArray([1, 2, 3], [3]);
+      expect(() => Tensor.dotProduct(t1, t2)).toThrowError('tensors must have same dimensions');
+    });
+
+    test('dot product returns scalar', () => {
+      const t1 = Tensor.createTensorFromArray(2, []);
+      const t2 = Tensor.createTensorFromArray(4, []);
+      const scalar = Tensor.dotProduct(t1, t2);
+      expect(scalar).toBeInstanceOf(Tensor);
+      expect(scalar.dimensions).toEqual([]);
+    });
+
+    test('dot product of scalars', () => {
+      const t1 = Tensor.createTensorFromArray(2, []);
+      const t2 = Tensor.createTensorFromArray(4, []);
+      const scalar = Tensor.dotProduct(t1, t2);
+      expect(scalar.tensor).toBe(8);
+    });
+
+    test('dot product of vectors is sum of dot products of respective scalars', () => {
+      const t1 = Tensor.createTensorFromArray([2, 3], [2]);
+      const t2 = Tensor.createTensorFromArray([2, 2], [2]);
+      const scalar = Tensor.dotProduct(t1, t2);
+      expect(scalar.tensor).toBe(10);
+    });
+
+    test('dot product of matrices is sum of dot products of respective vectors', () => {
+      const t1 = Tensor.createTensorFromArray(
+        [
+          [1, 2],
+          [3, 4],
+        ],
+        [2, 2],
+      );
+      const t2 = Tensor.createTensorFromArray(
+        [
+          [2, 2],
+          [2, 2],
+        ],
+        [2, 2],
+      );
+      const scalar = Tensor.dotProduct(t1, t2);
+      expect(scalar.tensor).toBe(20);
+    });
+  });
+
+  describe('convolution', () => {
+    test('convolution of two vectors of same length is vector with one member', () => {
+      const tensor = Tensor.createTensorFromArray([2, 3, 1], [3]);
+      const kernel = Tensor.createTensorFromArray([1, 2, 3], [3]);
+      const transformedTensor = Tensor.convolution(tensor, kernel);
+      expect(transformedTensor.toArray()).toEqual([11]);
+    });
+  });
 });
