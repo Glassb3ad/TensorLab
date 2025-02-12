@@ -10,6 +10,7 @@ export default defineConfig({
         functions: 90,
         lines: 90,
       },
+      exclude: ['node_modules', '**/*config.*', 'src/index.ts'],
     },
   },
 });
