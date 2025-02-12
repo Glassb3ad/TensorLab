@@ -57,9 +57,18 @@ export class Tensor {
     return new Tensor(operation(tensor.tensor), []);
   }
 
-  static convolution(tensor: Tensor, kernel: Tensor): Tensor {
-    if (typeof tensor.tensor === 'number' && typeof kernel.tensor === 'number') {
-      return new Tensor(tensor.tensor * kernel.tensor, []);
+  static dotProduct(t1: Tensor, t2: Tensor) {
+    if (t1.dimensions[0] !== t2.dimensions[0]) {
+      throw new Error('tensors must have same dimensions');
     }
   }
+
+  // static convolution(tensor: Tensor, kernel: Tensor) {
+  //   if (typeof tensor.tensor === 'number' && typeof kernel.tensor === 'number') {
+  //     return new Tensor(tensor.tensor * kernel.tensor, []);
+  //   }
+  //   if (tensor.dimensions.length === 1 && kernel.dimensions.length === 1) {
+  //     return new Tensor(tensor.tensor * kernel.tensor, []);
+  //   }
+  // }
 }

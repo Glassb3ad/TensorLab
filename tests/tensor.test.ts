@@ -181,12 +181,27 @@ describe('Tensor', () => {
     });
   });
 
-  describe('convolution', () => {
-    test('convolution of two scalars', () => {
-      const tensor = Tensor.createTensorFromArray(2, []);
-      const kernel = Tensor.createTensorFromArray(3, []);
-      const transformedTensor = Tensor.convolution(tensor, kernel) as Tensor;
-      expect(transformedTensor.tensor).toBe(6);
+  describe('dot product', () => {
+    test('if tensors have different dimensions throw error', () => {
+      const t1 = Tensor.createTensorFromArray([1, 2], [2]);
+      const t2 = Tensor.createTensorFromArray([1, 2, 3], [3]);
+      expect(() => Tensor.dotProduct(t1, t2)).toThrowError('tensors must have same dimensions');
     });
   });
+
+  // describe('convolution', () => {
+  //   test('convolution of two scalars', () => {
+  //     const tensor = Tensor.createTensorFromArray(2, []);
+  //     const kernel = Tensor.createTensorFromArray(3, []);
+  //     const transformedTensor = Tensor.convolution(tensor, kernel) as Tensor;
+  //     expect(transformedTensor.tensor).toBe(6);
+  //   });
+
+  //   test('convolution of two vectors', () => {
+  //     const tensor = Tensor.createTensorFromArray([2, 3], [2]);
+  //     const kernel = Tensor.createTensorFromArray([1, 2, 3], [3]);
+  //     const transformedTensor = Tensor.convolution(tensor, kernel);
+  //     expect(transformedTensor?.tensor).toEqual([8, 13]);
+  //   });
+  // });
 });
