@@ -180,4 +180,13 @@ describe('Tensor', () => {
       ]);
     });
   });
+
+  describe('convolution', () => {
+    test('convolution of two scalars', () => {
+      const tensor = Tensor.createTensorFromArray(2, []);
+      const kernel = Tensor.createTensorFromArray(3, []);
+      const transformedTensor = Tensor.convolution(tensor, kernel) as Tensor;
+      expect(transformedTensor.tensor).toBe(6);
+    });
+  });
 });

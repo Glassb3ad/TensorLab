@@ -56,4 +56,10 @@ export class Tensor {
     }
     return new Tensor(operation(tensor.tensor), []);
   }
+
+  static convolution(tensor: Tensor, kernel: Tensor): Tensor {
+    if (typeof tensor.tensor === 'number' && typeof kernel.tensor === 'number') {
+      return new Tensor(tensor.tensor * kernel.tensor, []);
+    }
+  }
 }
