@@ -230,6 +230,50 @@ describe('Tensor', () => {
     });
   });
 
+  describe('Tensor addition', () => {
+    test('if tensors have different dimensions throw error', () => {
+      const t1 = Tensor.createTensorFromArray([1, 2], [2]);
+      const t2 = Tensor.createTensorFromArray([1, 2, 3], [3]);
+      expect(() => Tensor.add(t1, t2)).toThrowError('tensors have unequal dimensions');
+    });
+
+    test('two scalars', () => {
+      const t1 = Tensor.createTensorFromArray(2, []);
+      const t2 = Tensor.createTensorFromArray(4, []);
+      const scalar = Tensor.add(t1, t2);
+      expect(scalar.tensor).toBe(6);
+    });
+
+    test('two vectors', () => {
+      const t1 = Tensor.createTensorFromArray([2, 3], [2]);
+      const t2 = Tensor.createTensorFromArray([2, 2], [2]);
+      const scalar = Tensor.add(t1, t2);
+      expect(scalar.toArray()).toEqual([4, 5]);
+    });
+
+    test('two matrices', () => {
+      const t1 = Tensor.createTensorFromArray(
+        [
+          [1, 2],
+          [3, 4],
+        ],
+        [2, 2],
+      );
+      const t2 = Tensor.createTensorFromArray(
+        [
+          [2, 2],
+          [2, 2],
+        ],
+        [2, 2],
+      );
+      const matrix = Tensor.add(t1, t2);
+      expect(matrix.toArray()).toEqual([
+        [3, 4],
+        [5, 6],
+      ]);
+    });
+  });
+
   describe('convolution', () => {
     test('convolution of two vectors with the same length', () => {
       const tensor = Tensor.createTensorFromArray([2, 3, 1], [3]);
@@ -256,6 +300,44 @@ describe('Tensor', () => {
       const kernel = Tensor.createTensorFromArray([[2, 1]], [1, 2]);
       const transformedTensor = Tensor.convolution(tensor, kernel);
       expect(transformedTensor.toArray()).toEqual([[4], [10]]);
+    });
+
+    test('convolution of 2x2 matrix with 2x2 matrix results in 1x1 matrix', () => {
+      const tensor = Tensor.createTensorFromArray(
+        [
+          [1, 2],
+          [1, 2],
+        ],
+        [2, 2],
+      );
+      const kernel = Tensor.createTensorFromArray(
+        [
+          [2, 1],
+          [1, 1],
+        ],
+        [2, 2],
+      );
+      const transformedTensor = Tensor.convolution(tensor, kernel);
+      expect(transformedTensor.toArray()).toEqual([[7]]);
+    });
+
+    test('convolution of 2x3 matrix with 2x2 matrix results in 1x2 matrix', () => {
+      const tensor = Tensor.createTensorFromArray(
+        [
+          [1, 2, 3],
+          [1, 2, 3],
+        ],
+        [2, 3],
+      );
+      const kernel = Tensor.createTensorFromArray(
+        [
+          [2, 1],
+          [1, 1],
+        ],
+        [2, 2],
+      );
+      const transformedTensor = Tensor.convolution(tensor, kernel);
+      expect(transformedTensor.toArray()).toEqual([[7, 12]]);
     });
   });
 });
