@@ -70,8 +70,6 @@ export class Tensor {
   }
 
   static dotProduct(t1: Tensor, t2: Tensor): Tensor {
-    // console.log('first', t1.toArray());
-    // console.log('second', t2.toArray());
     if (t1.dimensions[0] !== t2.dimensions[0]) {
       throw new Error('tensors must have same dimensions');
     }
@@ -87,13 +85,9 @@ export class Tensor {
   }
 
   static convolution(tensor: Tensor, kernel: Tensor): Tensor {
-    // console.log({ tensor, kernel });
     if (kernel.dimensions.length === 1 && tensor.dimensions.length === 1) {
-      // console.log('array1:', tensor.toArray());
-      // console.log('array2:', kernel.toArray());
       const kernelLength = kernel.dimensions[0];
       const sliceCount = tensor.dimensions[0] - kernelLength + 1;
-      // console.log({ sliceCount });
       const slices = [...Array(sliceCount).keys()].map(
         i => new Tensor((tensor.tensor as Array<Tensor>).slice(i, kernelLength + i), [kernelLength]),
       );
@@ -104,7 +98,6 @@ export class Tensor {
     }
     const kernelLength = kernel.dimensions[0];
     const [firstDim, ...dimensions] = tensor.dimensions;
-    // console.log({ firstDim, dimensions });
     const sliceCount = firstDim - kernelLength + 1;
     const slices = [...Array(sliceCount).keys()].map(
       i => new Tensor((tensor.tensor as Array<Tensor>).slice(i, kernelLength + i), [...dimensions]),
@@ -115,9 +108,6 @@ export class Tensor {
       const tempConvolutions = [];
       for (let i = 0; i < (kernel.tensor as Array<Tensor>).length; i++) {
         const subKernel = (kernel.tensor as Array<Tensor>)[i];
-        console.log('slice', slice);
-        console.log('subKernel', subKernel);
-
         tempConvolutions.push(Tensor.convolution((slice.tensor as Array<Tensor>)[i], subKernel));
       }
       convolutedTensors.push(tempConvolutions.reduce((pre, cur) => Tensor.add(pre, cur)));
@@ -126,16 +116,5 @@ export class Tensor {
       convolutedTensors.length,
       ...(convolutedTensors[0] ? convolutedTensors[0].dimensions : []),
     ]);
-    // console.log({ sliceCount, kernelLength });
-    // console.log('slices', slices);
-    // console.log('firstSlices', slices[0]);
-    // console.log(JSON.stringify(convolutedTensors));
-    // // console.log({ kernelDim: kernel.dimensions, tensor: kernel.tensor, tensorArr: kernel.tensor?.[0] });
-    // const subTensors = slices.map((slice, i) =>
-    //   (slice.tensor as Array<Tensor>).map(t => Tensor.convolution(t, (kernel.tensor as Array<Tensor>)[0])),
-    // );
-    // // console.log({ subTensors: subTensors.flat(2) });
-    // // return tensor;
-    // return new Tensor(subTensors.flat(2), [sliceCount, ...subTensors.flat(2)[0].dimensions]);
   }
 }
