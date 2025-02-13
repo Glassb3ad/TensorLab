@@ -2,7 +2,7 @@ import { expect, test, describe } from 'vitest';
 import { Tensor } from '../src/tensor';
 
 describe('Tensor', () => {
-  describe('Create tensor from array', () => {
+  describe('Tensor from array', () => {
     test('Create scalar', () => {
       const tensor = Tensor.createTensorFromArray(1, []);
       expect(tensor.tensor).toBe(1);
@@ -79,7 +79,7 @@ describe('Tensor', () => {
     });
   });
 
-  describe('Create tensor from tensor', () => {
+  describe('Tensor from tensor', () => {
     test('Create scalar', () => {
       const tensor = Tensor.createTensorFromArray(1, []);
       const newTensor = Tensor.createTensorFromTensor(tensor, []);
@@ -146,7 +146,7 @@ describe('Tensor', () => {
     });
   });
 
-  describe('Test element-wise method', () => {
+  describe('element-wise', () => {
     test('add 1 to scalar', () => {
       const tensor = Tensor.createTensorFromArray(1, []);
       const increasedByOne = Tensor.elementWise(tensor, a => a + 1);
@@ -243,6 +243,19 @@ describe('Tensor', () => {
       const kernel = Tensor.createTensorFromArray([1, 2], [2]);
       const transformedTensor = Tensor.convolution(tensor, kernel);
       expect(transformedTensor.toArray()).toEqual([8, 5]);
+    });
+
+    test('convolution of 2x2 matrix with 1x2 matrix results in 2x1 matrix', () => {
+      const tensor = Tensor.createTensorFromArray(
+        [
+          [1, 2],
+          [3, 4],
+        ],
+        [2, 2],
+      );
+      const kernel = Tensor.createTensorFromArray([[2, 1]], [1, 2]);
+      const transformedTensor = Tensor.convolution(tensor, kernel);
+      expect(transformedTensor.toArray()).toEqual([[4], [10]]);
     });
   });
 });
