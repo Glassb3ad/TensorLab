@@ -339,5 +339,28 @@ describe('Tensor', () => {
       const transformedTensor = Tensor.convolution(tensor, kernel);
       expect(transformedTensor.toArray()).toEqual([[7, 12]]);
     });
+
+    test('convolution of 3x3 matrix with 2x2 matrix results in 2x2 matrix', () => {
+      const tensor = Tensor.createTensorFromArray(
+        [
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 1, 1],
+        ],
+        [3, 3],
+      );
+      const kernel = Tensor.createTensorFromArray(
+        [
+          [2, 1],
+          [1, 1],
+        ],
+        [2, 2],
+      );
+      const transformedTensor = Tensor.convolution(tensor, kernel);
+      expect(transformedTensor.toArray()).toEqual([
+        [7, 12],
+        [6, 9],
+      ]);
+    });
   });
 });
