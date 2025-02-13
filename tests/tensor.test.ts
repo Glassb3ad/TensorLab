@@ -362,5 +362,37 @@ describe('Tensor', () => {
         [6, 9],
       ]);
     });
+
+    test('1x convolution of 3x3x3 matrix results in 3x3x3 matrix', () => {
+      const tensor = Tensor.createTensorFromArray(
+        [
+          [
+            [1, 2, 3],
+            [1, 2, 3],
+            [1, 1, 1],
+          ],
+          [
+            [1, 2, 3],
+            [1, 2, 3],
+            [1, 1, 1],
+          ],
+          [
+            [1, 1, 1],
+            [1, 1, 1],
+            [1, 1, 1],
+          ],
+        ],
+        [3, 3, 3],
+      );
+      const kernel = Tensor.createTensorFromArray([[[2]], [[2]], [[2]]], [3, 1, 1]);
+      const transformedTensor = Tensor.convolution(tensor, kernel);
+      expect(transformedTensor.toArray()).toEqual([
+        [
+          [6, 10, 14],
+          [6, 10, 14],
+          [6, 6, 6],
+        ],
+      ]);
+    });
   });
 });
