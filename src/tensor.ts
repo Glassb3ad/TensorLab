@@ -58,7 +58,7 @@ export class Tensor {
   }
 
   static isVector(t: Tensor): boolean {
-    return true;
+    return t.dimensions.length === 1;
   }
 
   static add(t1: Tensor, t2: Tensor): Tensor {

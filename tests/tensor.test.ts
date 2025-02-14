@@ -279,6 +279,11 @@ describe('Tensor', () => {
       const tensor = Tensor.createTensorFromArray([1], [1]);
       expect(Tensor.isVector(tensor)).toBe(true);
     });
+
+    test('return false when tensor is matrix', () => {
+      const tensor = Tensor.createTensorFromArray([[1]], [1, 1]);
+      expect(Tensor.isVector(tensor)).toBe(false);
+    });
   });
 
   describe('convolution', () => {
