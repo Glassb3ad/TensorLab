@@ -57,6 +57,10 @@ export class Tensor {
     return new Tensor(operation(tensor.tensor), []);
   }
 
+  static isVector(t: Tensor): boolean {
+    return true;
+  }
+
   static add(t1: Tensor, t2: Tensor): Tensor {
     if (t1.dimensions[0] !== t2.dimensions[0]) {
       throw new Error('tensors have unequal dimensions');
@@ -117,8 +121,8 @@ export class Tensor {
     const convolutedTensors = [];
     for (const slice of slices) {
       const tempConvolutions = [];
-      for (let i = 0; i < (kernel.tensor as Array<Tensor>).length; i++) {
-        const subKernel = (kernel.tensor as Array<Tensor>)[i];
+      for (let i = 0; i < kernel.tensor.length; i++) {
+        const subKernel = kernel.tensor[i];
         tempConvolutions.push(Tensor.convolution((slice.tensor as Array<Tensor>)[i], subKernel));
       }
       convolutedTensors.push(tempConvolutions.reduce((pre, cur) => Tensor.add(pre, cur)));

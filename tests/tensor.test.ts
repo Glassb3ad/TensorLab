@@ -274,6 +274,13 @@ describe('Tensor', () => {
     });
   });
 
+  describe('isVector', () => {
+    test('return true when tensor is vector', () => {
+      const tensor = Tensor.createTensorFromArray([1], [1]);
+      expect(Tensor.isVector(tensor)).toBe(true);
+    });
+  });
+
   describe('convolution', () => {
     describe('sliceTensorByKernel', () => {
       test('if tensor is scalar throw error', () => {
