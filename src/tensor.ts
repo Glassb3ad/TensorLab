@@ -105,6 +105,10 @@ export class Tensor {
   }
 
   static convolution(tensor: Tensor, kernel: Tensor): Tensor {
+    if (typeof tensor.tensor === 'number' || typeof kernel.tensor === 'number') {
+      throw new Error('Convolution does not support scalars');
+    }
+
     if (kernel.dimensions.length === 1 && tensor.dimensions.length === 1) {
       return this.vectorConvolution(tensor, kernel);
     }

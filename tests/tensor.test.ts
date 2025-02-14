@@ -304,6 +304,12 @@ describe('Tensor', () => {
       });
     });
 
+    test('convolution of scalars throw error', () => {
+      const tensor = Tensor.createTensorFromArray(2, []);
+      const kernel = Tensor.createTensorFromArray(1, []);
+      expect(() => Tensor.convolution(tensor, kernel)).toThrowError('Convolution does not support scalars');
+    });
+
     test('convolution of two vectors with the same length', () => {
       const tensor = Tensor.createTensorFromArray([2, 3, 1], [3]);
       const kernel = Tensor.createTensorFromArray([1, 2, 3], [3]);
