@@ -84,24 +84,26 @@ export class Tensor {
     return new Tensor((t1.tensor as number) * (t2.tensor as number), []);
   }
 
+  static sliceTensor = (t1: Tensor, sliceLength: number): Array<Tensor> => {
+    if (typeof t1.tensor === 'number') {
+      throw new Error('Scalar cannot be sliced');
+    }
+    const subTensors = t1.tensor;
+    const sliceCount = subTensors.length - sliceLength + 1;
+    return [...Array(sliceCount).keys()].map(
+      i => new Tensor(subTensors.slice(i, sliceLength + i), [sliceLength, ...t1.dimensions.slice(1)]),
+    );
+  };
+
   static convolution(tensor: Tensor, kernel: Tensor): Tensor {
+    const kernelLength = (kernel.tensor as Array<Tensor>).length;
+    const slices = Tensor.sliceTensor(tensor, kernelLength);
     if (kernel.dimensions.length === 1 && tensor.dimensions.length === 1) {
-      const kernelLength = kernel.dimensions[0];
-      const sliceCount = tensor.dimensions[0] - kernelLength + 1;
-      const slices = [...Array(sliceCount).keys()].map(
-        i => new Tensor((tensor.tensor as Array<Tensor>).slice(i, kernelLength + i), [kernelLength]),
-      );
       return new Tensor(
         slices.map(slice => Tensor.dotProduct(slice, kernel)),
-        [sliceCount],
+        [slices.length],
       );
     }
-    const kernelLength = kernel.dimensions[0];
-    const [firstDim, ...dimensions] = tensor.dimensions;
-    const sliceCount = firstDim - kernelLength + 1;
-    const slices = [...Array(sliceCount).keys()].map(
-      i => new Tensor((tensor.tensor as Array<Tensor>).slice(i, kernelLength + i), [...dimensions]),
-    );
 
     const convolutedTensors = [];
     for (const slice of slices) {
