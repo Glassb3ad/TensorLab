@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { add, createTensorFromArray, dotProduct, elementWise, equalShape, isScalar, isVector } from '../src/tensor';
+import { add, createTensorFromArray, dotProduct, equalShape, isScalar, isVector } from '../src/tensor';
 
 describe('Tensor', () => {
   describe('Tenso from array', () => {
@@ -31,38 +31,6 @@ describe('Tensor', () => {
 
     test.skip('Trying to create matrix with vectors of different lengths throws error', () => {
       expect(() => createTensorFromArray([[1, 2], [3]])).toThrowError('Sub tensors have unequal length');
-    });
-  });
-
-  describe('element-wise', () => {
-    test('add 1 to scalar', () => {
-      const tensor = createTensorFromArray(1);
-      const increasedByOne = elementWise(tensor, a => a + 1);
-      expect(increasedByOne).toBe(2);
-    });
-
-    test('add 1 to scalar does not mutate the original scalaer', () => {
-      const tensor = createTensorFromArray(1);
-      elementWise(tensor, a => a + 1);
-      expect(tensor).toBe(1);
-    });
-
-    test('add 1 to vector', () => {
-      const tensor = createTensorFromArray([1, 2, 3, 4]);
-      const increasedByOne = elementWise(tensor, a => a + 1);
-      expect(increasedByOne).toEqual([2, 3, 4, 5]);
-    });
-
-    test('add 1 to matrix', () => {
-      const tensor = createTensorFromArray([
-        [1, 2],
-        [3, 4],
-      ]);
-      const increasedByOne = elementWise(tensor, a => a + 1);
-      expect(increasedByOne).toEqual([
-        [2, 3],
-        [4, 5],
-      ]);
     });
   });
 

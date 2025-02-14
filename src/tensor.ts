@@ -24,13 +24,6 @@ export const equalShape = (t1: Tensor, t2: Tensor): boolean => {
   return equalShape(t1[0], t2[0]);
 };
 
-export const elementWise = (tensor: Tensor, operation: (arg: number) => number): Tensor => {
-  if (Array.isArray(tensor)) {
-    return tensor.map(t => elementWise(t, operation));
-  }
-  return operation(tensor);
-};
-
 export const add = (t1: Tensor, t2: Tensor): Tensor => {
   if (!equalShape(t1, t2)) {
     throw new Error('tensors have unequal dimensions');
