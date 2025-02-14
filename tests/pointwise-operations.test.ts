@@ -1,23 +1,23 @@
 import { expect, test, describe } from 'vitest';
-import { createTresholdOperation, pointWise, treshold } from '../src/point-wise-operations';
+import { createTresholdOperation, pointwise, treshold } from '../src/pointwise-operations';
 import { createTensorFromArray } from '../src/tensor';
 
 describe('point-wise', () => {
   test('add 1 to scalar', () => {
     const tensor = createTensorFromArray(1);
-    const increasedByOne = pointWise(tensor, a => a + 1);
+    const increasedByOne = pointwise(tensor, a => a + 1);
     expect(increasedByOne).toBe(2);
   });
 
   test('add 1 to scalar does not mutate the original scalaer', () => {
     const tensor = createTensorFromArray(1);
-    pointWise(tensor, a => a + 1);
+    pointwise(tensor, a => a + 1);
     expect(tensor).toBe(1);
   });
 
   test('add 1 to vector', () => {
     const tensor = createTensorFromArray([1, 2, 3, 4]);
-    const increasedByOne = pointWise(tensor, a => a + 1);
+    const increasedByOne = pointwise(tensor, a => a + 1);
     expect(increasedByOne).toEqual([2, 3, 4, 5]);
   });
 
@@ -26,7 +26,7 @@ describe('point-wise', () => {
       [1, 2],
       [3, 4],
     ]);
-    const increasedByOne = pointWise(tensor, a => a + 1);
+    const increasedByOne = pointwise(tensor, a => a + 1);
     expect(increasedByOne).toEqual([
       [2, 3],
       [4, 5],
