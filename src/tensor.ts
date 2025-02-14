@@ -91,7 +91,7 @@ export class Tensor {
   }
 
   static dotProduct(t1: Tensor, t2: Tensor): Tensor {
-    if (t1.dimensions[0] !== t2.dimensions[0]) {
+    if (!Tensor.equalShape(t1, t2)) {
       throw new Error('tensors must have same dimensions');
     }
     if (Array.isArray(t1.tensor) && Array.isArray(t2.tensor)) {
