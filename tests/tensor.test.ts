@@ -275,24 +275,27 @@ describe('Tensor', () => {
   });
 
   describe('convolution', () => {
-    describe('sliceTensor', () => {
+    describe('sliceTensorByKernel', () => {
       test('if tensor is scalar throw error', () => {
         const t1 = Tensor.createTensorFromArray(1, []);
+        const kernel = Tensor.createTensorFromArray([1, 2], [2]);
         expect(() => {
-          Tensor.sliceTensor(t1, 2);
+          Tensor.sliceTensorByKernel(t1, kernel);
         }).toThrowError('Scalar cannot be sliced');
       });
 
       test('2 place vector has 1 slice with size 2', () => {
         const t1 = Tensor.createTensorFromArray([1, 1], [2]);
-        const slices = Tensor.sliceTensor(t1, 2);
+        const kernel = Tensor.createTensorFromArray([1, 2], [2]);
+        const slices = Tensor.sliceTensorByKernel(t1, kernel);
         expect(slices.length).toBe(1);
         expect(slices[0].toArray()).toEqual([1, 1]);
       });
 
       test('3 place vector has 2 slice with size 2', () => {
         const t1 = Tensor.createTensorFromArray([1, 2, 3], [3]);
-        const slices = Tensor.sliceTensor(t1, 2);
+        const kernel = Tensor.createTensorFromArray([1, 2], [2]);
+        const slices = Tensor.sliceTensorByKernel(t1, kernel);
         expect(slices.length).toBe(2);
         expect(slices.map(t => t.toArray())).toEqual([
           [1, 2],
