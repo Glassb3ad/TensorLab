@@ -1,59 +1,50 @@
 type TensorArg = Array<TensorArg> | number;
 
-export class Tensor {
-  tensor: Array<Tensor> | number;
-  dimensions: Array<number>;
+export type Tensor = Array<Tensor> | number;
 
-  private constructor(tensor: Array<Tensor> | number, dimensions: Array<number>) {
-    this.tensor = tensor;
-    this.dimensions = dimensions;
+export const createTensorFromArray = (tensor: TensorArg): Tensor => {
+  //TODO check that arrays have the same length
+  return tensor;
+};
+
+export const isScalar = (t: Tensor) => typeof t === 'number';
+
+export const isVector = (t: Tensor) => !isScalar(t) && isScalar(t[0]);
+
+export const equalShape = (t1: Tensor, t2: Tensor): boolean => {
+  if (isScalar(t1) && isScalar(t2)) {
+    return true;
   }
-
-  static createTensorFromArray = (tensor: TensorArg, dimensions: Array<number>): Tensor => {
-    if (Array.isArray(tensor)) {
-      if (dimensions[0] !== tensor.length) {
-        throw new Error('initial value violates given dimension');
-      }
-      const newTensor = tensor.map(a => Tensor.createTensorFromArray(a, dimensions.slice(1)));
-      return new Tensor(newTensor, dimensions);
-    } else {
-      if (dimensions.length !== 0) {
-        throw new Error('initial value violates given dimension');
-      }
-      return new Tensor(tensor, dimensions);
-    }
-  };
-
-  static createTensorFromTensor = (tensor: Tensor, dimensions: Array<number>): Tensor => {
-    if (Array.isArray(tensor.tensor)) {
-      if (dimensions[0] !== tensor.tensor.length) {
-        throw new Error('initial value violates given dimension');
-      }
-      const newTensor = tensor.tensor.map(a => Tensor.createTensorFromTensor(a, dimensions.slice(1)));
-      return new Tensor(newTensor, dimensions);
-    } else {
-      if (dimensions.length !== 0) {
-        throw new Error('initial value violates given dimension');
-      }
-      return new Tensor(tensor.tensor, dimensions);
-    }
-  };
-
-  toArray(): TensorArg {
-    if (Array.isArray(this.tensor)) {
-      return this.tensor.map(a => a.toArray());
-    } else {
-      return this.tensor;
-    }
+  if (isScalar(t1) || isScalar(t2)) {
+    return false;
   }
-
-  static elementWise(tensor: Tensor, operation: (arg: number) => number): Tensor {
-    if (Array.isArray(tensor.tensor)) {
-      return new Tensor(
-        tensor.tensor.map(t => Tensor.elementWise(t, operation)),
-        tensor.dimensions,
-      );
-    }
-    return new Tensor(operation(tensor.tensor), []);
+  if (t1.length !== t2.length) {
+    return false;
   }
-}
+  return equalShape(t1[0], t2[0]);
+};
+
+export const add = (t1: Tensor, t2: Tensor): Tensor => {
+  if (!equalShape(t1, t2)) {
+    throw new Error('tensors have unequal dimensions');
+  }
+  if (Array.isArray(t1) && Array.isArray(t2)) {
+    return t1.map((tensor, index) => add(tensor, t2[index]));
+  }
+  return (t1 as number) + (t2 as number);
+};
+
+const dotProductRec = (t1: Tensor, t2: Tensor): Tensor => {
+  if (Array.isArray(t1) && Array.isArray(t2)) {
+    const sum = t1.reduce((pre, cur, index) => (dotProductRec(cur, t2[index]) as number) + (pre as number), 0);
+    return sum;
+  }
+  return (t1 as number) * (t2 as number);
+};
+
+export const dotProduct = (t1: Tensor, t2: Tensor): Tensor => {
+  if (!equalShape(t1, t2)) {
+    throw new Error('tensors must have same dimensions');
+  }
+  return dotProductRec(t1, t2);
+};

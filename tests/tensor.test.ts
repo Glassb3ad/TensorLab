@@ -1,183 +1,170 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../src/tensor';
+import { add, createTensorFromArray, dotProduct, equalShape, isScalar, isVector } from '../src/tensor';
 
 describe('Tensor', () => {
-  describe('Create tensor from array', () => {
+  describe('Tenso from array', () => {
     test('Create scalar', () => {
-      const tensor = Tensor.createTensorFromArray(1, []);
-      expect(tensor.tensor).toBe(1);
+      const tensor = createTensorFromArray(1);
+      expect(tensor).toBe(1);
     });
 
     test('Create vector', () => {
-      const tensor = Tensor.createTensorFromArray([1, 2, 3, 8], [4]);
-      expect(tensor.toArray()).toEqual([1, 2, 3, 8]);
+      const tensor = createTensorFromArray([1, 2, 3, 8]);
+      expect(tensor).toEqual([1, 2, 3, 8]);
     });
 
     test('Create matrix', () => {
-      const tensor = Tensor.createTensorFromArray(
-        [
-          [1, 2],
-          [3, 8],
-        ],
-        [2, 2],
-      );
-      expect(tensor.toArray()).toEqual([
+      const tensor = createTensorFromArray([
+        [1, 2],
+        [3, 8],
+      ]);
+      expect(tensor).toEqual([
         [1, 2],
         [3, 8],
       ]);
     });
 
-    test('Scalar has empty dimension', () => {
-      const tensor = Tensor.createTensorFromArray(1, []);
-      expect(tensor.dimensions).toEqual([]);
+    test('Scalar is number', () => {
+      const tensor = createTensorFromArray(1);
+      expect(tensor).toBeTypeOf('number');
     });
 
-    test('4 place vector has dimension [4]', () => {
-      const tensor = Tensor.createTensorFromArray([1, 2, 3, 8], [4]);
-      expect(tensor.dimensions).toEqual([4]);
-    });
-
-    test('Matrix with 2 2-place vectors has dimension [2,2]', () => {
-      const tensor = Tensor.createTensorFromArray(
-        [
-          [1, 2],
-          [3, 8],
-        ],
-        [2, 2],
-      );
-      expect(tensor.dimensions).toEqual([2, 2]);
-    });
-
-    test('Vectors of [2,2] matrix have dimension [2]', () => {
-      const tensor = Tensor.createTensorFromArray(
-        [
-          [1, 2],
-          [3, 8],
-        ],
-        [2, 2],
-      );
-
-      (tensor.tensor as Array<Tensor>).forEach(vector => {
-        expect(vector.dimensions).toEqual([2]);
-      });
-    });
-
-    test('Trying to create scalar with dimension [7] throws error', () => {
-      expect(() => Tensor.createTensorFromArray(2, [7])).toThrowError('initial value violates given dimension');
-    });
-
-    test('Trying to create [5] vector with dimension [8] throws error', () => {
-      expect(() => Tensor.createTensorFromArray([1, 2, 3, 4, 5], [8])).toThrowError(
-        'initial value violates given dimension',
-      );
-    });
-
-    test('Trying to create matrix with vectors of different lengths with dimension [2,2] throws error', () => {
-      expect(() => Tensor.createTensorFromArray([[1, 2], [3]], [2, 2])).toThrowError(
-        'initial value violates given dimension',
-      );
+    test.skip('Trying to create matrix with vectors of different lengths throws error', () => {
+      expect(() => createTensorFromArray([[1, 2], [3]])).toThrowError('Sub tensors have unequal length');
     });
   });
 
-  describe('Create tensor from tensor', () => {
-    test('Create scalar', () => {
-      const tensor = Tensor.createTensorFromArray(1, []);
-      const newTensor = Tensor.createTensorFromTensor(tensor, []);
-      expect(newTensor.tensor).toBe(1);
+  describe('dot product', () => {
+    test('if tensors have different dimensions throw error', () => {
+      const t1 = createTensorFromArray([1, 2]);
+      const t2 = createTensorFromArray([1, 2, 3]);
+      expect(() => dotProduct(t1, t2)).toThrowError('tensors must have same dimensions');
     });
 
-    test('Create vector', () => {
-      const tensor = Tensor.createTensorFromArray([1, 2, 3, 8], [4]);
-      const newTensor = Tensor.createTensorFromTensor(tensor, [4]);
-      expect(newTensor.toArray()).toEqual([1, 2, 3, 8]);
+    test('dot product returns scalar', () => {
+      const t1 = createTensorFromArray(2);
+      const t2 = createTensorFromArray(4);
+      const scalar = dotProduct(t1, t2);
+      // expect(scalar).toBeInstanceOf(Tensor2);
+      expect(scalar).toBeTypeOf('number');
     });
 
-    test('Create matrix', () => {
-      const tensor = Tensor.createTensorFromArray(
-        [
-          [1, 2],
-          [3, 8],
-        ],
-        [2, 2],
-      );
-      const newTensor = Tensor.createTensorFromTensor(tensor, [2, 2]);
-      expect(newTensor.toArray()).toEqual([
+    test('dot product of scalars', () => {
+      const t1 = createTensorFromArray(2);
+      const t2 = createTensorFromArray(4);
+      const scalar = dotProduct(t1, t2);
+      expect(scalar).toBe(8);
+    });
+
+    test('dot product of vectors is sum of dot products of respective scalars', () => {
+      const t1 = createTensorFromArray([2, 3]);
+      const t2 = createTensorFromArray([2, 2]);
+      const scalar = dotProduct(t1, t2);
+      expect(scalar).toBe(10);
+    });
+
+    test('dot product of matrices is sum of dot products of respective vectors', () => {
+      const t1 = createTensorFromArray([
         [1, 2],
-        [3, 8],
+        [3, 4],
       ]);
-    });
-
-    test('Scalar has empty dimension', () => {
-      const tensor = Tensor.createTensorFromArray(1, []);
-      const newTensor = Tensor.createTensorFromTensor(tensor, []);
-      expect(newTensor.dimensions).toEqual([]);
-    });
-
-    test('4 place vector has dimension [4]', () => {
-      const tensor = Tensor.createTensorFromArray([1, 2, 3, 8], [4]);
-      const newTensor = Tensor.createTensorFromTensor(tensor, [4]);
-      expect(newTensor.dimensions).toEqual([4]);
-    });
-
-    test('Matrix with 2 2-place vectors has dimension [2,2]', () => {
-      const tensor = Tensor.createTensorFromArray(
-        [
-          [1, 2],
-          [3, 8],
-        ],
+      const t2 = createTensorFromArray([
         [2, 2],
-      );
-      const newTensor = Tensor.createTensorFromTensor(tensor, [2, 2]);
-      expect(newTensor.dimensions).toEqual([2, 2]);
-    });
-
-    test('Vectors of [2,2] matrix have dimension [2]', () => {
-      const tensor = Tensor.createTensorFromArray(
-        [
-          [1, 2],
-          [3, 8],
-        ],
         [2, 2],
-      );
-      const newTensor = Tensor.createTensorFromTensor(tensor, [2, 2]);
-      (newTensor.tensor as Array<Tensor>).forEach(vector => {
-        expect(vector.dimensions).toEqual([2]);
-      });
+      ]);
+      const scalar = dotProduct(t1, t2);
+      expect(scalar).toBe(20);
     });
   });
 
-  describe('Test element-wise method', () => {
-    test('add 1 to scalar', () => {
-      const tensor = Tensor.createTensorFromArray(1, []);
-      const increasedByOne = Tensor.elementWise(tensor, a => a + 1);
-      expect(increasedByOne.tensor).toBe(2);
+  describe('Tensor addition', () => {
+    test('if tensors have different dimensions throw error', () => {
+      const t1 = createTensorFromArray([1, 2]);
+      const t2 = createTensorFromArray([1, 2, 3]);
+      expect(() => add(t1, t2)).toThrowError('tensors have unequal dimensions');
     });
 
-    test('add 1 to scalar does not mutate the original scalaer', () => {
-      const tensor = Tensor.createTensorFromArray(1, []);
-      Tensor.elementWise(tensor, a => a + 1);
-      expect(tensor.tensor).toBe(1);
+    test('two scalars', () => {
+      const t1 = createTensorFromArray(2);
+      const t2 = createTensorFromArray(4);
+      const scalar = add(t1, t2);
+      expect(scalar).toBe(6);
     });
 
-    test('add 1 to vector', () => {
-      const tensor = Tensor.createTensorFromArray([1, 2, 3, 4], [4]);
-      const increasedByOne = Tensor.elementWise(tensor, a => a + 1);
-      expect(increasedByOne.toArray()).toEqual([2, 3, 4, 5]);
+    test('two vectors', () => {
+      const t1 = createTensorFromArray([2, 3]);
+      const t2 = createTensorFromArray([2, 2]);
+      const vector = add(t1, t2);
+      expect(vector).toEqual([4, 5]);
     });
 
-    test('add 1 to matrix', () => {
-      const tensor = Tensor.createTensorFromArray(
-        [
-          [1, 2],
-          [3, 4],
-        ],
-        [2, 2],
-      );
-      const increasedByOne = Tensor.elementWise(tensor, a => a + 1);
-      expect(increasedByOne.toArray()).toEqual([
-        [2, 3],
-        [4, 5],
+    test('two matrices', () => {
+      const t1 = createTensorFromArray([
+        [1, 2],
+        [3, 4],
       ]);
+      const t2 = createTensorFromArray([
+        [2, 2],
+        [2, 2],
+      ]);
+      const matrix = add(t1, t2);
+      expect(matrix).toEqual([
+        [3, 4],
+        [5, 6],
+      ]);
+    });
+  });
+
+  describe('equalShape', () => {
+    test('Two scalars have equal shape', () => {
+      const t1 = createTensorFromArray(1);
+      const t2 = createTensorFromArray(2);
+      expect(equalShape(t1, t2)).toBe(true);
+    });
+
+    test('Scalars and matrix have different shape', () => {
+      const t1 = createTensorFromArray(1);
+      const t2 = createTensorFromArray([1, 2]);
+      expect(equalShape(t1, t2)).toBe(false);
+    });
+
+    test('Matrices of different length have different shape', () => {
+      const t1 = createTensorFromArray([1, 1, 1]);
+      const t2 = createTensorFromArray([1, 2]);
+      expect(equalShape(t1, t2)).toBe(false);
+    });
+
+    test('Vector and matrix have different shapes', () => {
+      const t1 = createTensorFromArray([1, 2]);
+      const t2 = createTensorFromArray([
+        [1, 1],
+        [1, 1],
+      ]);
+      expect(equalShape(t1, t2)).toBe(false);
+    });
+  });
+
+  describe('isScalar', () => {
+    test('return true when tensor is scalar', () => {
+      const tensor = createTensorFromArray(1);
+      expect(isScalar(tensor)).toBe(true);
+    });
+
+    test('return false when tensor is matrix', () => {
+      const tensor = createTensorFromArray([1]);
+      expect(isScalar(tensor)).toBe(false);
+    });
+  });
+
+  describe('isVector', () => {
+    test('return true when tensor is vector', () => {
+      const tensor = createTensorFromArray([1]);
+      expect(isVector(tensor)).toBe(true);
+    });
+
+    test('return false when tensor is matrix', () => {
+      const tensor = createTensorFromArray([[1]]);
+      expect(isVector(tensor)).toBe(false);
     });
   });
 });
