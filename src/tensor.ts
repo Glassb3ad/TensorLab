@@ -47,6 +47,19 @@ export class Tensor {
     }
   }
 
+  static equalShape(t1: Tensor, t2: Tensor): boolean {
+    if (Tensor.isScalar(t1) && Tensor.isScalar(t2)) {
+      return true;
+    }
+    if (Tensor.isScalar(t1) || Tensor.isScalar(t2)) {
+      return false;
+    }
+    if ((t1.tensor as Array<Tensor>).length !== (t2.tensor as Array<Tensor>).length) {
+      return false;
+    }
+    return Tensor.equalShape((t1.tensor as Array<Tensor>)[0], (t2.tensor as Array<Tensor>)[0]);
+  }
+
   static elementWise(tensor: Tensor, operation: (arg: number) => number): Tensor {
     if (Array.isArray(tensor.tensor)) {
       return new Tensor(

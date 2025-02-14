@@ -274,6 +274,38 @@ describe('Tensor', () => {
     });
   });
 
+  describe('equalShape', () => {
+    test('Two scalars have equal shape', () => {
+      const t1 = Tensor.createTensorFromArray(1, []);
+      const t2 = Tensor.createTensorFromArray(2, []);
+      expect(Tensor.equalShape(t1, t2)).toBe(true);
+    });
+
+    test('Scalars and matrix have different shape', () => {
+      const t1 = Tensor.createTensorFromArray(1, []);
+      const t2 = Tensor.createTensorFromArray([1, 2], [2]);
+      expect(Tensor.equalShape(t1, t2)).toBe(false);
+    });
+
+    test('Matrices of different length have different shape', () => {
+      const t1 = Tensor.createTensorFromArray([1, 1, 1], [3]);
+      const t2 = Tensor.createTensorFromArray([1, 2], [2]);
+      expect(Tensor.equalShape(t1, t2)).toBe(false);
+    });
+
+    test('Vector and matrix have different shapes', () => {
+      const t1 = Tensor.createTensorFromArray([1, 2], [2]);
+      const t2 = Tensor.createTensorFromArray(
+        [
+          [1, 1],
+          [1, 1],
+        ],
+        [2, 2],
+      );
+      expect(Tensor.equalShape(t1, t2)).toBe(false);
+    });
+  });
+
   describe('isScalar', () => {
     test('return true when tensor is scalar', () => {
       const tensor = Tensor.createTensorFromArray(1, []);
