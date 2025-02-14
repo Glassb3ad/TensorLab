@@ -7,11 +7,6 @@ export const pointwise = (tensor: Tensor, operation: (arg: number) => number): T
   return operation(tensor);
 };
 
-export const createTresholdOperation =
-  (treshold: number, aboveTreshold = 1, underTreshold = 0) =>
-  (scalar: number): number =>
-    scalar >= treshold ? aboveTreshold : underTreshold;
-
-export const treshold = (tensor: Tensor, treshold: number, aboveTreshold?: number, underTreshold?: number): Tensor => {
-  return pointwise(tensor, createTresholdOperation(treshold, aboveTreshold, underTreshold));
+export const treshold = (tensor: Tensor, treshold: number, aboveTreshold = 1, belowTreshold = 0): Tensor => {
+  return pointwise(tensor, (scalar: number) => (scalar >= treshold ? aboveTreshold : belowTreshold));
 };
