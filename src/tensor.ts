@@ -71,7 +71,7 @@ export class Tensor {
   }
 
   static isVector(t: Tensor): boolean {
-    return t.dimensions.length === 1;
+    return !Tensor.isScalar(t) && Tensor.isScalar((t.tensor as Array<Tensor>)[0]);
   }
 
   static isScalar(t: Tensor): boolean {
