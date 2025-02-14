@@ -95,16 +95,22 @@ export class Tensor {
     );
   };
 
-  static convolution(tensor: Tensor, kernel: Tensor): Tensor {
+  static vectorConvolution(tensor: Tensor, kernel: Tensor): Tensor {
     const kernelLength = (kernel.tensor as Array<Tensor>).length;
     const slices = Tensor.sliceTensor(tensor, kernelLength);
+    return new Tensor(
+      slices.map(slice => Tensor.dotProduct(slice, kernel)),
+      [slices.length],
+    );
+  }
+
+  static convolution(tensor: Tensor, kernel: Tensor): Tensor {
     if (kernel.dimensions.length === 1 && tensor.dimensions.length === 1) {
-      return new Tensor(
-        slices.map(slice => Tensor.dotProduct(slice, kernel)),
-        [slices.length],
-      );
+      return this.vectorConvolution(tensor, kernel);
     }
 
+    const kernelLength = (kernel.tensor as Array<Tensor>).length;
+    const slices = Tensor.sliceTensor(tensor, kernelLength);
     const convolutedTensors = [];
     for (const slice of slices) {
       const tempConvolutions = [];
