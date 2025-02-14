@@ -61,6 +61,10 @@ export class Tensor {
     return t.dimensions.length === 1;
   }
 
+  static isScalar(t: Tensor): boolean {
+    return true;
+  }
+
   static add(t1: Tensor, t2: Tensor): Tensor {
     if (t1.dimensions[0] !== t2.dimensions[0]) {
       throw new Error('tensors have unequal dimensions');

@@ -274,6 +274,13 @@ describe('Tensor', () => {
     });
   });
 
+  describe('isScalar', () => {
+    test('return true when tensor is scalar', () => {
+      const tensor = Tensor.createTensorFromArray(1, []);
+      expect(Tensor.isScalar(tensor)).toBe(true);
+    });
+  });
+
   describe('isVector', () => {
     test('return true when tensor is vector', () => {
       const tensor = Tensor.createTensorFromArray([1], [1]);
