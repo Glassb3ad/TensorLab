@@ -90,10 +90,7 @@ export class Tensor {
     return new Tensor((t1.tensor as number) + (t2.tensor as number), []);
   }
 
-  static dotProduct(t1: Tensor, t2: Tensor): Tensor {
-    if (!Tensor.equalShape(t1, t2)) {
-      throw new Error('tensors must have same dimensions');
-    }
+  private static dotProductRec(t1: Tensor, t2: Tensor): Tensor {
     if (Array.isArray(t1.tensor) && Array.isArray(t2.tensor)) {
       const tensorArray = t2.tensor;
       const sum = t1.tensor.reduce(
@@ -103,6 +100,13 @@ export class Tensor {
       return new Tensor(sum, []);
     }
     return new Tensor((t1.tensor as number) * (t2.tensor as number), []);
+  }
+
+  static dotProduct(t1: Tensor, t2: Tensor): Tensor {
+    if (!Tensor.equalShape(t1, t2)) {
+      throw new Error('tensors must have same dimensions');
+    }
+    return Tensor.dotProductRec(t1, t2);
   }
 
   static sliceTensorByKernel = (t1: Tensor, kernel: Tensor): Array<Tensor> => {
