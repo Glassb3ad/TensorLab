@@ -11,6 +11,8 @@ export const isScalar = (t: Tensor) => typeof t === 'number';
 
 export const isVector = (t: Tensor) => !isScalar(t) && isScalar(t[0]);
 
+export const isMatrix = (t: Tensor) => !isScalar(t) && isVector(t[0]);
+
 export const equalShape = (t1: Tensor, t2: Tensor): boolean => {
   if (isScalar(t1) && isScalar(t2)) {
     return true;

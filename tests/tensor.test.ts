@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { add, createTensorFromArray, dotProduct, equalShape, isScalar, isVector } from '../src/tensor';
+import { add, createTensorFromArray, dotProduct, equalShape, isMatrix, isScalar, isVector } from '../src/tensor';
 
 describe('Tensor', () => {
   describe('Tenso from array', () => {
@@ -165,6 +165,18 @@ describe('Tensor', () => {
     test('return false when tensor is matrix', () => {
       const tensor = createTensorFromArray([[1]]);
       expect(isVector(tensor)).toBe(false);
+    });
+  });
+
+  describe('isMatrix', () => {
+    test('return true when tensor is matrix', () => {
+      const tensor = createTensorFromArray([[1], [2]]);
+      expect(isMatrix(tensor)).toBe(true);
+    });
+
+    test('return false when tensor is vector', () => {
+      const tensor = createTensorFromArray([1]);
+      expect(isMatrix(tensor)).toBe(false);
     });
   });
 });
