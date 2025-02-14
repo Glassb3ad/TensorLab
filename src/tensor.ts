@@ -62,7 +62,7 @@ export class Tensor {
   }
 
   static isScalar(t: Tensor): boolean {
-    return true;
+    return typeof t.tensor === 'number';
   }
 
   static add(t1: Tensor, t2: Tensor): Tensor {
