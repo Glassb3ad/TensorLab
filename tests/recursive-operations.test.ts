@@ -77,6 +77,12 @@ describe('min', () => {
     expect(minValue).toBe(1);
   });
 
+  test('Returns zero when it is minimum value', () => {
+    const tensor: Tensor = [1, 0, 8, 3, 4];
+    const minValue = min(tensor);
+    expect(minValue).toBe(0);
+  });
+
   test('return min value from matrix', () => {
     const matrix: Tensor = [
       [12, 8, 3, 4],
