@@ -53,6 +53,12 @@ describe('max', () => {
     expect(maxValue).toBe(8);
   });
 
+  test('Max value can be zero', () => {
+    const tensor: Tensor = [0, 0, 0, 0];
+    const maxValue = max(tensor);
+    expect(maxValue).toBe(0);
+  });
+
   test('return max value from matrix', () => {
     const matrix: Tensor = [
       [1, 8, 3, 4],
@@ -75,6 +81,12 @@ describe('min', () => {
     const tensor: Tensor = [1, 8, 3, 4];
     const minValue = min(tensor);
     expect(minValue).toBe(1);
+  });
+
+  test('Returns zero when it is minimum value', () => {
+    const tensor: Tensor = [1, 0, 8, 3, 4];
+    const minValue = min(tensor);
+    expect(minValue).toBe(0);
   });
 
   test('return min value from matrix', () => {

@@ -13,9 +13,9 @@ export const fold = <T>(tensor: Tensor, func: (agg: T, cur: number) => T, agg: T
 };
 
 export const max = (tensor: Tensor) => {
-  return fold<number | null>(tensor, (agg, cur) => (agg && agg >= cur ? agg : cur), null);
+  return fold<number | null>(tensor, (agg, cur) => (agg !== null && agg >= cur ? agg : cur), null);
 };
 
 export const min = (tensor: Tensor) => {
-  return fold<number | null>(tensor, (agg, cur) => (agg && agg <= cur ? agg : cur), null);
+  return fold<number | null>(tensor, (agg, cur) => (agg !== null && agg <= cur ? agg : cur), null);
 };
