@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../src/tensor';
+import { Coordinates, Tensor } from '../src/tensor';
 import { fold, max, min } from '../src/recursive-operations';
 
 describe('recursive operations', () => {
@@ -37,6 +37,42 @@ describe('recursive operations', () => {
     ];
     const vector = fold<Array<number>>(matrix, (agg, cur) => [...agg, cur], []);
     expect(vector).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+  });
+
+  test('Replace vector values with their coordinates', () => {
+    const vector: Tensor = [1, 2, 3, 4];
+    const coordinateVector = fold<Array<Coordinates>>(vector, (agg, _cur, coordinates) => agg.concat(coordinates), []);
+    expect(coordinateVector).toEqual([0, 1, 2, 3]);
+  });
+
+  test('Replace matrix values with coordinates', () => {
+    const matrix: Tensor = [
+      [1, 2],
+      [3, 4],
+    ];
+    const coordinateMatrix = fold<Array<Array<Coordinates>>>(
+      matrix,
+      (agg, _cur, coordinates) => {
+        const [row] = coordinates;
+        if (agg[row]) {
+          agg[row] = [...agg[row], coordinates];
+          return agg;
+        } else {
+          return [...agg, [coordinates]];
+        }
+      },
+      [[]],
+    );
+    expect(coordinateMatrix).toEqual([
+      [
+        [0, 0],
+        [0, 1],
+      ],
+      [
+        [1, 0],
+        [1, 1],
+      ],
+    ]);
   });
 });
 

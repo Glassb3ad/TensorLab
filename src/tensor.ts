@@ -2,6 +2,8 @@ type TensorArg = Array<TensorArg> | number;
 
 export type Tensor = Array<Tensor> | number;
 
+export type Coordinates = Array<number>;
+
 export const createTensorFromArray = (tensor: TensorArg): Tensor => {
   //TODO check that arrays have the same length
   return tensor;
