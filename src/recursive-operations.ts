@@ -1,4 +1,4 @@
-import { Coordinates, isScalar, Tensor } from './tensor';
+import { Coordinates, isVector, isScalar, Tensor } from './tensor';
 
 export const fold = <T>(
   tensor: Tensor,
@@ -42,10 +42,22 @@ export const map = (tensor: Tensor, mapFunc: (cur: number, coordinates: Coordina
   return fold<Array<Tensor>>(tensor, foldFunc, []);
 };
 
+const insertRec = (tensor: Tensor, value: number, insertTo: Coordinates) => {
+  if (!tensor || isScalar(tensor)) {
+    return;
+  }
+  const [index, ...rest] = insertTo;
+
+  if (rest.length === 0 && isVector(tensor) && index < tensor.length) {
+    tensor[index] = value;
+    return;
+  }
+  insertRec(tensor[index], value, rest);
+};
+
 export const insert = (tensor: Tensor, value: number, insertTo: Coordinates) => {
-  return map(tensor, (scalar, coordinates: Coordinates) =>
-    JSON.stringify(insertTo) === JSON.stringify(coordinates) ? value : scalar,
-  );
+  insertRec(tensor, value, insertTo);
+  return tensor;
 };
 
 export const max = (tensor: Tensor) => {
