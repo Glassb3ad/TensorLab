@@ -29,7 +29,7 @@ const pushToTensorArray = (tensor: Array<Tensor>, coordinates: Coordinates, valu
 
   const index = coordinates[0];
   if (Array.isArray(tensor[index])) {
-    return [...tensor.splice(0, -1), pushToTensorArray(tensor[index], coordinates.slice(1), value)];
+    return [...tensor.slice(0, -1), pushToTensorArray(tensor[index], coordinates.slice(1), value)];
   }
 
   return [...tensor, pushToTensorArray([], coordinates.slice(1), value)];
@@ -40,6 +40,12 @@ export const map = (tensor: Tensor, mapFunc: (cur: number, coordinates: Coordina
     return pushToTensorArray(agg, coordinates, mapFunc(cur, coordinates));
   };
   return fold<Array<Tensor>>(tensor, foldFunc, []);
+};
+
+export const insert = (tensor: Tensor, value: number, insertTo: Coordinates) => {
+  return map(tensor, (scalar, coordinates: Coordinates) =>
+    JSON.stringify(insertTo) === JSON.stringify(coordinates) ? value : scalar,
+  );
 };
 
 export const max = (tensor: Tensor) => {

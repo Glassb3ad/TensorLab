@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
 import { Coordinates, Tensor } from '../src/tensor';
-import { fold, map, max, min } from '../src/recursive-operations';
+import { fold, insert, map, max, min } from '../src/recursive-operations';
 import fc from 'fast-check';
 
 describe('recursive operations', () => {
@@ -138,6 +138,41 @@ describe('min', () => {
 });
 
 describe('map', () => {
+  test('Preserve vector dimensionality', () => {
+    fc.assert(
+      fc.property(fc.array(fc.integer({ min: 0, max: 255 })), vector => {
+        const mappedVector = map(vector, a => a);
+        expect(mappedVector).toEqual(vector);
+      }),
+    );
+  });
+
+  test('Preserve matrix dimensionality', () => {
+    fc.assert(
+      fc.property(fc.array(fc.array(fc.integer({ min: 0, max: 255 }), { maxLength: 10, minLength: 10 })), matrix => {
+        const mappedMatrix = map(matrix, a => a) as Array<Array<Tensor>>;
+        expect(mappedMatrix).toEqual(matrix);
+      }),
+    );
+  });
+
+  test('Preserve 3d tensor dimensionality', () => {
+    fc.assert(
+      fc.property(
+        fc.array(
+          fc.array(fc.array(fc.integer({ min: 0, max: 255 }), { maxLength: 10, minLength: 10 }), {
+            maxLength: 10,
+            minLength: 10,
+          }),
+        ),
+        tensor => {
+          const mappedTensor = map(tensor, a => a) as Array<Array<Tensor>>;
+          expect(mappedTensor).toEqual(tensor);
+        },
+      ),
+    );
+  });
+
   test('turn vector of different values to vectors of 1', () => {
     fc.assert(
       fc.property(fc.array(fc.integer({ min: 0, max: 255 })), vector => {
@@ -180,6 +215,100 @@ describe('map', () => {
               });
             });
           });
+        },
+      ),
+    );
+  });
+});
+
+describe('insert', () => {
+  test('adding new value to vector, changes only the scalar in given location', () => {
+    fc.assert(
+      fc.property(
+        fc.array(fc.integer({ min: 0, max: 255 }), { minLength: 10, maxLength: 10 }),
+        fc.integer({ min: 0, max: 255 }),
+        fc.integer({ min: 0, max: 9 }),
+        (vector, value, location) => {
+          const modifiedVector = insert(vector, value, [location]) as Array<Tensor>;
+          modifiedVector.forEach((scalar, i) => {
+            if (i === location) {
+              expect(scalar).toBe(value);
+            } else {
+              expect(scalar).toBe(vector[i]);
+            }
+          });
+        },
+      ),
+    );
+  });
+
+  test('adding new value to matrix, changes only the scalar in given location', () => {
+    fc.assert(
+      fc.property(
+        fc.array(fc.array(fc.integer({ min: 0, max: 255 }), { minLength: 10, maxLength: 10 }), {
+          minLength: 10,
+          maxLength: 10,
+        }),
+        fc.integer({ min: 0, max: 255 }),
+        fc.array(fc.integer({ min: 0, max: 9 }), { minLength: 2, maxLength: 2 }),
+        (matrix, value, location) => {
+          const modifiedMatrix = insert(matrix, value, location) as Array<Array<Tensor>>;
+          modifiedMatrix.forEach((vector, i) => {
+            vector.forEach((scalar, j) => {
+              if (i === location[0] && j === location[1]) {
+                expect(scalar).toBe(value);
+              } else {
+                expect(scalar).toBe(matrix[i][j]);
+              }
+            });
+          });
+        },
+      ),
+    );
+  });
+
+  test('adding new value to 3D tensor, changes only the scalar in given location', () => {
+    fc.assert(
+      fc.property(
+        fc.array(
+          fc.array(fc.array(fc.integer({ min: 0, max: 255 }), { minLength: 10, maxLength: 10 }), {
+            minLength: 10,
+            maxLength: 10,
+          }),
+          {
+            minLength: 10,
+            maxLength: 10,
+          },
+        ),
+        fc.integer({ min: 0, max: 255 }),
+        fc.array(fc.integer({ min: 0, max: 9 }), { minLength: 3, maxLength: 3 }),
+        (tensor, value, location) => {
+          const modifiedTensor = insert(tensor, value, location) as Array<Array<Array<Tensor>>>;
+          modifiedTensor.forEach((matrix, i) => {
+            matrix.forEach((vector, j) => {
+              vector.forEach((scalar, l) => {
+                if (i === location[0] && j === location[1] && l == location[2]) {
+                  expect(scalar).toBe(value);
+                } else {
+                  expect(scalar).toBe(tensor[i][j][l]);
+                }
+              });
+            });
+          });
+        },
+      ),
+    );
+  });
+
+  test('adding value to location outside of vector returns equal vector', () => {
+    fc.assert(
+      fc.property(
+        fc.array(fc.integer({ min: 0, max: 255 }), { minLength: 10, maxLength: 10 }),
+        fc.integer({ min: 0, max: 255 }),
+        fc.integer({ min: 10, max: 20 }),
+        (vector, value, location) => {
+          const modifiedVector = insert(vector, value, [location]) as Array<Tensor>;
+          expect(vector).toEqual(modifiedVector);
         },
       ),
     );
