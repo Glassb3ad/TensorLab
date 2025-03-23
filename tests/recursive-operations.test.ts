@@ -53,6 +53,12 @@ describe('max', () => {
     expect(maxValue).toBe(8);
   });
 
+  test('Max value can be zero', () => {
+    const tensor: Tensor = [0, 0, 0, 0];
+    const maxValue = max(tensor);
+    expect(maxValue).toBe(0);
+  });
+
   test('return max value from matrix', () => {
     const matrix: Tensor = [
       [1, 8, 3, 4],
