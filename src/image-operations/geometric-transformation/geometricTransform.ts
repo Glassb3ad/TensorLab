@@ -8,7 +8,10 @@ export const geometricTransform = (tensor: Tensor, transformCoordinates: (coordi
     tensor,
     (agg: Tensor, cur: number, coordinates: Coordinates) => {
       const newCoordinates = transformCoordinates(coordinates);
-      return insert(agg, cur, newCoordinates);
+      if (newCoordinates.every(coordinate => coordinate >= 0)) {
+        return insert(agg, cur, newCoordinates);
+      }
+      return agg;
     },
     result,
   );
