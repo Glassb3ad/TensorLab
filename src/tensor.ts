@@ -37,7 +37,10 @@ export const getScalarAt = (tensor: Tensor, coordinates: Coordinates, fallback: 
   }
   if (keepSearching) {
     const [firstCoordinate, ...lastCoordinates] = coordinates;
-    return getScalarAt(tensor[firstCoordinate], lastCoordinates, fallback);
+    const next = tensor[firstCoordinate];
+    if (next) {
+      return getScalarAt(next, lastCoordinates, fallback);
+    }
   }
   return fallback;
 };
