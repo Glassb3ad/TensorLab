@@ -30,6 +30,18 @@ export const equalShape = (t1: Tensor, t2: Tensor): boolean => {
   return equalShape(t1[0], t2[0]);
 };
 
+export const getScalarAt = (tensor: Tensor, coordinates: Coordinates, fallback: number): number => {
+  const keepSearching = coordinates.length !== 0;
+  if (isScalar(tensor)) {
+    return keepSearching ? fallback : tensor;
+  }
+  if (keepSearching) {
+    const [firstCoordinate, ...lastCoordinates] = coordinates;
+    return getScalarAt(tensor[firstCoordinate], lastCoordinates, fallback);
+  }
+  return fallback;
+};
+
 export const add = (t1: Tensor, t2: Tensor): Tensor => {
   if (!equalShape(t1, t2)) {
     throw new Error('tensors have unequal dimensions');
