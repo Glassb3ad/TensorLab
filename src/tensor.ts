@@ -4,6 +4,8 @@ export type Tensor = Array<Tensor> | number;
 
 export type Coordinates = Array<number>;
 
+export type Dimensions = Array<number>;
+
 export const createTensorFromArray = (tensor: TensorArg): Tensor => {
   //TODO check that arrays have the same length
   return tensor;
@@ -16,6 +18,15 @@ export const isVector = (t: Tensor) => !isScalar(t) && isScalar(t[0]);
 export const isMatrix = (t: Tensor): t is Array<Array<Tensor>> => !isScalar(t) && isVector(t[0]);
 
 export const is3D = (t: Tensor) => !isScalar(t) && isMatrix(t[0]);
+
+export const getDimensionsRec = (tensor: Tensor | undefined, dimensions: Dimensions = []): Dimensions => {
+  if (!tensor || isScalar(tensor)) {
+    return dimensions;
+  }
+  return getDimensionsRec(tensor[0], [...dimensions, tensor.length]);
+};
+
+export const getDimensions = (tensor: Tensor) => getDimensionsRec(tensor);
 
 export const equalShape = (t1: Tensor, t2: Tensor): boolean => {
   if (isScalar(t1) && isScalar(t2)) {

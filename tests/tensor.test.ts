@@ -4,12 +4,14 @@ import {
   createTensorFromArray,
   dotProduct,
   equalShape,
+  getDimensions,
   getScalarAt,
   is3D,
   isMatrix,
   isScalar,
   isVector,
 } from '../src/tensor';
+import fc from 'fast-check';
 
 describe('Tensor', () => {
   describe('Tenso from array', () => {
@@ -245,6 +247,34 @@ describe('Tensor', () => {
         0,
       );
       expect(tensor).toBe(0);
+    });
+  });
+
+  describe('getDimensions', () => {
+    test('Scalar has dimension []', () => {
+      const dimensions = getDimensions(1);
+      expect(dimensions).toEqual([]);
+    });
+
+    test('Vector has dimension [vector.length]', () => {
+      fc.assert(
+        fc.property(fc.array(fc.integer({ min: 0, max: 255 })), vector => {
+          const dimension = getDimensions(vector);
+          expect(dimension).toEqual([vector.length]);
+        }),
+      );
+    });
+
+    test('Matrix has dimension [matrix.length, vector.length]', () => {
+      fc.assert(
+        fc.property(
+          fc.array(fc.array(fc.integer({ min: 0, max: 255 }), { minLength: 10, maxLength: 10 }), { minLength: 1 }),
+          matrix => {
+            const dimension = getDimensions(matrix);
+            expect(dimension).toEqual([matrix.length, matrix[0].length]);
+          },
+        ),
+      );
     });
   });
 });
