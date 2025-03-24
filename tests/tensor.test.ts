@@ -1,6 +1,7 @@
 import { expect, test, describe } from 'vitest';
 import {
   add,
+  createTensorByDimensions,
   createTensorFromArray,
   dotProduct,
   equalShape,
@@ -10,6 +11,7 @@ import {
   isMatrix,
   isScalar,
   isVector,
+  Tensor,
 } from '../src/tensor';
 import fc from 'fast-check';
 
@@ -274,6 +276,32 @@ describe('Tensor', () => {
             expect(dimension).toEqual([matrix.length, matrix[0].length]);
           },
         ),
+      );
+    });
+  });
+
+  describe('createTensorByDimensions', () => {
+    test('Return scalar when dimension = []', () => {
+      const dimensions = createTensorByDimensions([]);
+      expect(dimensions).toBe(0);
+    });
+
+    test('Return vector with length L when dimension = [L]', () => {
+      fc.assert(
+        fc.property(fc.array(fc.integer({ min: 0, max: 255 }), { minLength: 1, maxLength: 1 }), dimensions => {
+          const vector = createTensorByDimensions(dimensions) as Array<Tensor>;
+          expect(vector.length).toBe(dimensions[0]);
+        }),
+      );
+    });
+
+    test('Return matrix with M vectors of length L when dimension = [M,L]', () => {
+      fc.assert(
+        fc.property(fc.array(fc.integer({ min: 1, max: 255 }), { minLength: 2, maxLength: 2 }), dimensions => {
+          const matrix = createTensorByDimensions(dimensions) as Array<Array<Tensor>>;
+          expect(matrix.length).toBe(dimensions[0]);
+          expect(matrix[0].length).toBe(dimensions[1]);
+        }),
       );
     });
   });
