@@ -26,6 +26,16 @@ export const getDimensionsRec = (tensor: Tensor | undefined, dimensions: Dimensi
   return getDimensionsRec(tensor[0], [...dimensions, tensor.length]);
 };
 
+export const createTensorByDimensions = (dimensions: Dimensions, defaultScalar = 0): Tensor => {
+  if (dimensions.length === 0) {
+    return defaultScalar;
+  }
+  const [first, ...rest] = dimensions;
+  return Array(first)
+    .fill(null)
+    .map(() => createTensorByDimensions(rest, defaultScalar));
+};
+
 export const getDimensions = (tensor: Tensor) => getDimensionsRec(tensor);
 
 export const equalShape = (t1: Tensor, t2: Tensor): boolean => {
