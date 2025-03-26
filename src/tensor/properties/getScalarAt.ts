@@ -1,4 +1,4 @@
-import { isScalar } from '../shapePredicates';
+import { isScalar } from '../predicates/shapePredicates';
 import { Tensor, Coordinates } from '../types';
 
 export const getScalarAt = (tensor: Tensor, coordinates: Coordinates, fallback: number): number => {

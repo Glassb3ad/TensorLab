@@ -1,4 +1,4 @@
-import { fold } from '../fold';
+import { fold } from '../operations/fold';
 import { Tensor } from '../types';
 
 export const max = (tensor: Tensor) => {

@@ -1,7 +1,7 @@
 import { add } from './add';
 import { dotProduct } from './dotProduct';
-import { isScalar, isVector } from './shapePredicates';
-import { Tensor } from './types';
+import { isScalar, isVector } from '../predicates/shapePredicates';
+import { Tensor } from '../types';
 
 export function sliceTensorByKernel(t1: Tensor, kernel: Tensor): Array<Tensor> {
   if (isScalar(t1) || isScalar(kernel)) {

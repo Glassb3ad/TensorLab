@@ -1,5 +1,5 @@
-import { haveEqualShape } from './shapePredicates';
-import { Tensor } from './types';
+import { haveEqualShape } from '../predicates/shapePredicates';
+import { Tensor } from '../types';
 
 export const add = (t1: Tensor, t2: Tensor): Tensor => {
   if (!haveEqualShape(t1, t2)) {

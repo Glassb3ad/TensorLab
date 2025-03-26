@@ -1,5 +1,5 @@
-import { isScalar } from './shapePredicates';
-import { Coordinates, Tensor } from './types';
+import { isScalar } from '../predicates/shapePredicates';
+import { Coordinates, Tensor } from '../types';
 
 export const fold = <T>(
   tensor: Tensor,

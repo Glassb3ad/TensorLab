@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { haveEqualShape, is3D, isMatrix, isScalar, isVector } from '../../src/tensor/shapePredicates';
+import { haveEqualShape, is3D, isMatrix, isScalar, isVector } from '../../../src/tensor/predicates/shapePredicates';
 
 describe('isScalar', () => {
   test('return true when tensor is scalar', () => {

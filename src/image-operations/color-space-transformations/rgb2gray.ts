@@ -1,5 +1,5 @@
-import { convolution } from '../../tensor/convolution';
-import { is3D } from '../../tensor/shapePredicates';
+import { convolution } from '../../tensor/operations/convolution';
+import { is3D } from '../../tensor/predicates/shapePredicates';
 import { Tensor } from '../../tensor/types';
 
 const RGB_2_GRAY_KERNEL = [[[0.2989]], [[0.587]], [[0.114]]];

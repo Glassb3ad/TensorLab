@@ -1,5 +1,5 @@
-import { haveEqualShape } from './shapePredicates';
-import { Tensor } from './types';
+import { haveEqualShape } from '../predicates/shapePredicates';
+import { Tensor } from '../types';
 
 const dotProductRec = (t1: Tensor, t2: Tensor): Tensor => {
   if (Array.isArray(t1) && Array.isArray(t2)) {

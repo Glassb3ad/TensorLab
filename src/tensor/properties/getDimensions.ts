@@ -1,4 +1,4 @@
-import { isScalar } from '../shapePredicates';
+import { isScalar } from '../predicates/shapePredicates';
 import { Tensor, Dimensions } from '../types';
 
 const getDimensionsRec = (tensor: Tensor | undefined, dimensions: Dimensions = []): Dimensions => {

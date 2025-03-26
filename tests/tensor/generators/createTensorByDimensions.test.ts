@@ -1,7 +1,7 @@
 import fc from 'fast-check';
 import { describe, test, expect } from 'vitest';
-import { createTensorByDimensions } from '../../src/tensor/createTensorByDimensions';
-import { Tensor } from '../../src/tensor/types';
+import { createTensorByDimensions } from '../../../src/tensor/generators/createTensorByDimensions';
+import { Tensor } from '../../../src/tensor/types';
 
 describe('createTensorByDimensions', () => {
   test('Return scalar when dimension = []', () => {

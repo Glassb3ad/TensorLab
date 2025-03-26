@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { convolution, sliceTensorByKernel } from '../src/tensor/convolution';
+import { convolution, sliceTensorByKernel } from '../../../src/tensor/operations/convolution';
 
 describe('convolution', () => {
   describe('sliceTensorByKernel', () => {

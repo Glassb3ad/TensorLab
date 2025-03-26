@@ -1,5 +1,5 @@
 import { fold } from './fold';
-import { Tensor, Coordinates } from './types';
+import { Tensor, Coordinates } from '../types';
 
 const pushToTensorArray = (tensor: Array<Tensor>, coordinates: Coordinates, value: Tensor): Array<Tensor> => {
   if (coordinates.length === 1) {

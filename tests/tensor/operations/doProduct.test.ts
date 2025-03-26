@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { dotProduct } from '../../src/tensor/dotProduct';
+import { dotProduct } from '../../../src/tensor/operations/dotProduct';
 
 describe('dot product', () => {
   test('if tensors have different dimensions throw error', () => {

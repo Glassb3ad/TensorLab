@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
-import { Coordinates, Tensor } from '../../src/tensor/types';
-import { fold } from '../../src/tensor/fold';
+import { Coordinates, Tensor } from '../../../src/tensor/types';
+import { fold } from '../../../src/tensor/operations/fold';
 
 describe('recursive operations', () => {
   test('base case: add 1 to scalar', () => {

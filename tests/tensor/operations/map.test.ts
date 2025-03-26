@@ -1,7 +1,7 @@
 import fc from 'fast-check';
 import { describe, test, expect } from 'vitest';
-import { map } from '../../src/tensor/map';
-import { Tensor } from '../../src/tensor/types';
+import { map } from '../../../src/tensor/operations/map';
+import { Tensor } from '../../../src/tensor/types';
 
 describe('map', () => {
   test('Preserve vector dimensionality', () => {
