@@ -1,5 +1,6 @@
+import { insert } from '../../tensor/mutations/insert';
 import { mapToZero } from '../../tensor/pointwise-operations';
-import { fold, insert } from '../../tensor/recursive-operations';
+import { fold } from '../../tensor/recursive-operations';
 import { Coordinates, Tensor } from '../../tensor/tensor';
 
 export const geometricTransform = (tensor: Tensor, transformCoordinates: (coordinates: Coordinates) => Coordinates) => {
