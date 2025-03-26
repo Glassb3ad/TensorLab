@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../../src/tensor/tensor';
 import { adjustBrightness } from '../../src/image-operations/adjustBrightness';
+import { Tensor } from '../../src/tensor/types';
 
 describe('adjustBrightness', () => {
   test('All scalars are multiplied with 2', () => {
