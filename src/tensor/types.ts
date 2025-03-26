@@ -1,4 +1,6 @@
-export type Tensor = Array<Tensor> | number;
+export type Scalar = number;
+
+export type Tensor = Array<Tensor> | Scalar;
 
 export type Coordinates = Array<number>;
 
