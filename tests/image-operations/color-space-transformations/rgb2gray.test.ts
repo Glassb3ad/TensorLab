@@ -12,7 +12,7 @@ describe('rgb2gray', () => {
     const matrix = createTensorFromArray([[1, 2]]);
     expect(() => {
       rgb2gray(matrix);
-    }).toThrowError('Tensor is not 3d');
+    }).toThrowError('Tensor is not 3 dimensional');
   });
 
   test('rgb is transformed to matrix', () => {
