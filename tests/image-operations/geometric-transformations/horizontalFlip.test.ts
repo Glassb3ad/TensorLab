@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../../../src/tensor';
+import { Tensor } from '../../../src/tensor/tensor';
 import { horizontalFlip } from '../../../src/image-operations/geometric-transformation/horizontalFlip';
 import fc from 'fast-check';
 

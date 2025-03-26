@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
-import { Coordinates, Tensor } from '../src/tensor';
-import { fold, insert, map, max, min } from '../src/recursive-operations';
+import { Coordinates, Tensor } from '../src/tensor/tensor';
+import { fold, insert, map, max, min } from '../src/tensor/recursive-operations';
 import fc from 'fast-check';
 
 describe('recursive operations', () => {

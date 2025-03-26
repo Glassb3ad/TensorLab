@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { Coordinates, Tensor } from '../../../src/tensor';
+import { Coordinates, Tensor } from '../../../src/tensor/tensor';
 import { inverseGeometricTransform } from '../../../src/image-operations/geometric-transformation/inverseGeometricTransform';
 
 describe('invertGeometricTransform', () => {

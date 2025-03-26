@@ -1,5 +1,5 @@
-import { pointwise } from '../pointwise-operations';
-import { Tensor } from '../tensor';
+import { pointwise } from '../tensor/pointwise-operations';
+import { Tensor } from '../tensor/tensor';
 
 const normalize = (tensor: Tensor) => pointwise(tensor, scalar => scalar / 255);
 const invertNormalize = (tensor: Tensor) => pointwise(tensor, scalar => scalar * 255);

@@ -12,7 +12,7 @@ import {
   isScalar,
   isVector,
   Tensor,
-} from '../src/tensor';
+} from '../src/tensor/tensor';
 import fc from 'fast-check';
 
 describe('Tensor', () => {

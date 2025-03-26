@@ -1,6 +1,6 @@
-import { mapToZero } from '../../pointwise-operations';
-import { fold, insert } from '../../recursive-operations';
-import { Coordinates, createTensorByDimensions, getScalarAt, Tensor } from '../../tensor';
+import { mapToZero } from '../../tensor/pointwise-operations';
+import { fold, insert } from '../../tensor/recursive-operations';
+import { Coordinates, createTensorByDimensions, getScalarAt, Tensor } from '../../tensor/tensor';
 
 const resizeTensor = (tensor: Tensor, transform: (coordinates: Coordinates) => Coordinates) => {
   const maxCoordinates = fold<Coordinates>(

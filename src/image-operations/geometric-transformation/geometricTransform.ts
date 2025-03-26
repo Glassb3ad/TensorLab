@@ -1,6 +1,6 @@
-import { mapToZero } from '../../pointwise-operations';
-import { fold, insert } from '../../recursive-operations';
-import { Coordinates, Tensor } from '../../tensor';
+import { mapToZero } from '../../tensor/pointwise-operations';
+import { fold, insert } from '../../tensor/recursive-operations';
+import { Coordinates, Tensor } from '../../tensor/tensor';
 
 export const geometricTransform = (tensor: Tensor, transformCoordinates: (coordinates: Coordinates) => Coordinates) => {
   const result = mapToZero(tensor);

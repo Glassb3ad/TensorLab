@@ -1,6 +1,6 @@
-import { pointwise } from '../pointwise-operations';
-import { max } from '../recursive-operations';
-import { Tensor } from '../tensor';
+import { pointwise } from '../tensor/pointwise-operations';
+import { max } from '../tensor/recursive-operations';
+import { Tensor } from '../tensor/tensor';
 
 //Note: this function fails when tensors max value is zero
 export const log = (tensor: Tensor) => {

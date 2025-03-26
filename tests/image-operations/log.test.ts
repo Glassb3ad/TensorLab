@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../../src/tensor';
+import { Tensor } from '../../src/tensor/tensor';
 import { log } from '../../src/image-operations/log';
 
 describe('invert', () => {

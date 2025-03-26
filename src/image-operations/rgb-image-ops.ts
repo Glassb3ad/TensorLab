@@ -1,5 +1,5 @@
-import { convolution } from './convolution';
-import { is3D, Tensor } from './tensor';
+import { convolution } from '../tensor/convolution';
+import { is3D, Tensor } from '../tensor/tensor';
 
 const RGB_2_GRAY_KERNEL = [[[0.2989]], [[0.587]], [[0.114]]];
 

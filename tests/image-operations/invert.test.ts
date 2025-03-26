@@ -1,8 +1,8 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../../src/tensor';
+import { Tensor } from '../../src/tensor/tensor';
 import { invert } from '../../src/image-operations/invert';
 import fc from 'fast-check';
-import { max } from '../../src/recursive-operations';
+import { max } from '../../src/tensor/recursive-operations';
 
 describe('invert', () => {
   test('All scalars become 8 - scalar when 8 is max value in tensor', () => {

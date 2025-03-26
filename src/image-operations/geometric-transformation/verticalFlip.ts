@@ -1,4 +1,4 @@
-import { Coordinates, Tensor } from '../../tensor';
+import { Coordinates, Tensor } from '../../tensor/tensor';
 import { geometricTransform } from './geometricTransform';
 
 export const verticalFlip = (image: Array<Tensor>) => {
