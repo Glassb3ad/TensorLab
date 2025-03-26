@@ -1,5 +1,6 @@
 import { dotProduct } from './dotProduct';
-import { add, isScalar, isVector } from './tensor';
+import { isScalar, isVector } from './shapePredicates';
+import { add } from './tensor';
 import { Tensor } from './types';
 
 export function sliceTensorByKernel(t1: Tensor, kernel: Tensor): Array<Tensor> {

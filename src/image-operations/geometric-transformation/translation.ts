@@ -1,4 +1,4 @@
-import { isMatrix } from '../../tensor/tensor';
+import { isMatrix } from '../../tensor/shapePredicates';
 import { Coordinates, Tensor } from '../../tensor/types';
 import { geometricTransform } from './geometricTransform';
 

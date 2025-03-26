@@ -1,4 +1,4 @@
-import { isScalar, isVector } from '../tensor';
+import { isScalar, isVector } from '../shapePredicates';
 import { Coordinates, Tensor } from '../types';
 
 const insertRec = (tensor: Tensor, value: number, insertTo: Coordinates) => {

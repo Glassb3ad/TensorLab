@@ -1,6 +1,7 @@
 import { expect, test, describe } from 'vitest';
-import { createTensorFromArray, isMatrix } from '../../../src/tensor/tensor';
+import { createTensorFromArray } from '../../../src/tensor/tensor';
 import { rgb2gray } from '../../../src/image-operations/color-space-transformations/rgb2gray';
+import { isMatrix } from '../../../src/tensor/shapePredicates';
 
 const R = [[100]];
 const G = [[150]];

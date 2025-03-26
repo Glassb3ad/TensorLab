@@ -1,4 +1,4 @@
-import { equalShape } from './tensor';
+import { haveEqualShape } from './shapePredicates';
 import { Tensor } from './types';
 
 const dotProductRec = (t1: Tensor, t2: Tensor): Tensor => {
@@ -10,7 +10,7 @@ const dotProductRec = (t1: Tensor, t2: Tensor): Tensor => {
 };
 
 export const dotProduct = (t1: Tensor, t2: Tensor): Tensor => {
-  if (!equalShape(t1, t2)) {
+  if (!haveEqualShape(t1, t2)) {
     throw new Error('tensors must have same dimensions');
   }
   return dotProductRec(t1, t2);

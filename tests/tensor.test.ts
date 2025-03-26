@@ -1,16 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import {
-  add,
-  createTensorByDimensions,
-  createTensorFromArray,
-  equalShape,
-  getDimensions,
-  getScalarAt,
-  is3D,
-  isMatrix,
-  isScalar,
-  isVector,
-} from '../src/tensor/tensor';
+import { add, createTensorByDimensions, createTensorFromArray, getDimensions, getScalarAt } from '../src/tensor/tensor';
 import fc from 'fast-check';
 import { Tensor } from '../src/tensor/types';
 
@@ -82,83 +71,6 @@ describe('Tensor', () => {
         [3, 4],
         [5, 6],
       ]);
-    });
-  });
-
-  describe('equalShape', () => {
-    test('Two scalars have equal shape', () => {
-      const t1 = createTensorFromArray(1);
-      const t2 = createTensorFromArray(2);
-      expect(equalShape(t1, t2)).toBe(true);
-    });
-
-    test('Scalars and matrix have different shape', () => {
-      const t1 = createTensorFromArray(1);
-      const t2 = createTensorFromArray([1, 2]);
-      expect(equalShape(t1, t2)).toBe(false);
-    });
-
-    test('Matrices of different length have different shape', () => {
-      const t1 = createTensorFromArray([1, 1, 1]);
-      const t2 = createTensorFromArray([1, 2]);
-      expect(equalShape(t1, t2)).toBe(false);
-    });
-
-    test('Vector and matrix have different shapes', () => {
-      const t1 = createTensorFromArray([1, 2]);
-      const t2 = createTensorFromArray([
-        [1, 1],
-        [1, 1],
-      ]);
-      expect(equalShape(t1, t2)).toBe(false);
-    });
-  });
-
-  describe('isScalar', () => {
-    test('return true when tensor is scalar', () => {
-      const tensor = createTensorFromArray(1);
-      expect(isScalar(tensor)).toBe(true);
-    });
-
-    test('return false when tensor is matrix', () => {
-      const tensor = createTensorFromArray([1]);
-      expect(isScalar(tensor)).toBe(false);
-    });
-  });
-
-  describe('isVector', () => {
-    test('return true when tensor is vector', () => {
-      const tensor = createTensorFromArray([1]);
-      expect(isVector(tensor)).toBe(true);
-    });
-
-    test('return false when tensor is matrix', () => {
-      const tensor = createTensorFromArray([[1]]);
-      expect(isVector(tensor)).toBe(false);
-    });
-  });
-
-  describe('isMatrix', () => {
-    test('return true when tensor is matrix', () => {
-      const tensor = createTensorFromArray([[1], [2]]);
-      expect(isMatrix(tensor)).toBe(true);
-    });
-
-    test('return false when tensor is vector', () => {
-      const tensor = createTensorFromArray([1]);
-      expect(isMatrix(tensor)).toBe(false);
-    });
-  });
-
-  describe('i3d', () => {
-    test('return true when tensor had 3 dimensions', () => {
-      const tensor = createTensorFromArray([[[1]], [[2]]]);
-      expect(is3D(tensor)).toBe(true);
-    });
-
-    test('return false when tensor is matrix', () => {
-      const tensor = createTensorFromArray([1]);
-      expect(is3D(tensor)).toBe(false);
     });
   });
 
