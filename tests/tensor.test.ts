@@ -1,5 +1,19 @@
 import { expect, test, describe } from 'vitest';
-import { add, createTensorFromArray, dotProduct, equalShape, is3D, isMatrix, isScalar, isVector } from '../src/tensor';
+import {
+  add,
+  createTensorByDimensions,
+  createTensorFromArray,
+  dotProduct,
+  equalShape,
+  getDimensions,
+  getScalarAt,
+  is3D,
+  isMatrix,
+  isScalar,
+  isVector,
+  Tensor,
+} from '../src/tensor';
+import fc from 'fast-check';
 
 describe('Tensor', () => {
   describe('Tenso from array', () => {
@@ -189,6 +203,106 @@ describe('Tensor', () => {
     test('return false when tensor is matrix', () => {
       const tensor = createTensorFromArray([1]);
       expect(is3D(tensor)).toBe(false);
+    });
+  });
+
+  describe('getScalarAt', () => {
+    test('return tensor when tensor is scalar and coordinates are empty', () => {
+      const tensor = getScalarAt(2, [], 0);
+      expect(tensor).toBe(2);
+    });
+
+    test('return fallback when tensor is scalar and coordinates are not empty', () => {
+      const tensor = getScalarAt(2, [2], 0);
+      expect(tensor).toBe(0);
+    });
+
+    test('return scalar at given location in vector', () => {
+      const tensor = getScalarAt([1, 2, 3], [1], 0);
+      expect(tensor).toBe(2);
+    });
+
+    test('return fallback if given location is outside of vector', () => {
+      const tensor = getScalarAt([1, 2, 3], [8], 0);
+      expect(tensor).toBe(0);
+    });
+
+    test('return scalar at given location in matrix', () => {
+      const tensor = getScalarAt(
+        [
+          [1, 2, 3],
+          [4, 5, 6],
+        ],
+        [1, 0],
+        0,
+      );
+      expect(tensor).toBe(4);
+    });
+
+    test('return fallback when location in matrix is not scalar', () => {
+      const tensor = getScalarAt(
+        [
+          [1, 2, 3],
+          [4, 5, 6],
+        ],
+        [1],
+        0,
+      );
+      expect(tensor).toBe(0);
+    });
+  });
+
+  describe('getDimensions', () => {
+    test('Scalar has dimension []', () => {
+      const dimensions = getDimensions(1);
+      expect(dimensions).toEqual([]);
+    });
+
+    test('Vector has dimension [vector.length]', () => {
+      fc.assert(
+        fc.property(fc.array(fc.integer({ min: 0, max: 255 })), vector => {
+          const dimension = getDimensions(vector);
+          expect(dimension).toEqual([vector.length]);
+        }),
+      );
+    });
+
+    test('Matrix has dimension [matrix.length, vector.length]', () => {
+      fc.assert(
+        fc.property(
+          fc.array(fc.array(fc.integer({ min: 0, max: 255 }), { minLength: 10, maxLength: 10 }), { minLength: 1 }),
+          matrix => {
+            const dimension = getDimensions(matrix);
+            expect(dimension).toEqual([matrix.length, matrix[0].length]);
+          },
+        ),
+      );
+    });
+  });
+
+  describe('createTensorByDimensions', () => {
+    test('Return scalar when dimension = []', () => {
+      const dimensions = createTensorByDimensions([]);
+      expect(dimensions).toBe(0);
+    });
+
+    test('Return vector with length L when dimension = [L]', () => {
+      fc.assert(
+        fc.property(fc.array(fc.integer({ min: 0, max: 255 }), { minLength: 1, maxLength: 1 }), dimensions => {
+          const vector = createTensorByDimensions(dimensions) as Array<Tensor>;
+          expect(vector.length).toBe(dimensions[0]);
+        }),
+      );
+    });
+
+    test('Return matrix with M vectors of length L when dimension = [M,L]', () => {
+      fc.assert(
+        fc.property(fc.array(fc.integer({ min: 1, max: 255 }), { minLength: 2, maxLength: 2 }), dimensions => {
+          const matrix = createTensorByDimensions(dimensions) as Array<Array<Tensor>>;
+          expect(matrix.length).toBe(dimensions[0]);
+          expect(matrix[0].length).toBe(dimensions[1]);
+        }),
+      );
     });
   });
 });
