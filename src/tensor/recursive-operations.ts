@@ -42,7 +42,3 @@ export const map = (tensor: Tensor, mapFunc: (cur: number, coordinates: Coordina
   };
   return fold<Array<Tensor>>(tensor, foldFunc, []);
 };
-
-export const min = (tensor: Tensor) => {
-  return fold<number | null>(tensor, (agg, cur) => (agg !== null && agg <= cur ? agg : cur), null);
-};
