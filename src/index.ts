@@ -1,5 +1,4 @@
 import sharp from 'sharp';
-import { createTensorFromArray, getDimensions } from './tensor/tensor';
 import { contrastStretch } from './image-operations/filters/contrastStretch';
 import { adjustBrightness } from './image-operations/filters/adjustBrightness';
 import { invert } from './image-operations/filters/invert';
@@ -10,6 +9,7 @@ import { horizontalFlip } from './image-operations/geometric-transformation/hori
 import { translate } from './image-operations/geometric-transformation/translation';
 import { scale } from './image-operations/geometric-transformation/scale';
 import { Tensor } from './tensor/types';
+import { getDimensions } from './tensor/properties/getDimensions';
 
 // Function to read a JPG image and convert it to a 3 x n x m array
 async function readImageToArray(filePath: string): Promise<number[][][]> {
@@ -130,7 +130,7 @@ const array = [
 // });
 
 readGrayscaleToArray('contrast-test.png').then(async array => {
-  const tensor = createTensorFromArray(array) as Array<Tensor>;
+  const tensor = array as Array<Tensor>;
   // const modifiedTensor = rgb2gray(tensor) as number[][];
   // console.log(modifiedTensor[0]);
   const stretched = contrastStretch(tensor, 255) as number[][];
