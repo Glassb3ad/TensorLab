@@ -1,5 +1,5 @@
 import { haveEqualShape, isScalar } from './shapePredicates';
-import { Coordinates, Dimensions, Tensor } from './types';
+import { Dimensions, Tensor } from './types';
 
 type TensorArg = Array<TensorArg> | number;
 
@@ -26,21 +26,6 @@ export const createTensorByDimensions = (dimensions: Dimensions, defaultScalar =
 };
 
 export const getDimensions = (tensor: Tensor) => getDimensionsRec(tensor);
-
-export const getScalarAt = (tensor: Tensor, coordinates: Coordinates, fallback: number): number => {
-  const keepSearching = coordinates.length !== 0;
-  if (isScalar(tensor)) {
-    return keepSearching ? fallback : tensor;
-  }
-  if (keepSearching) {
-    const [firstCoordinate, ...lastCoordinates] = coordinates;
-    const next = tensor[firstCoordinate];
-    if (next) {
-      return getScalarAt(next, lastCoordinates, fallback);
-    }
-  }
-  return fallback;
-};
 
 export const add = (t1: Tensor, t2: Tensor): Tensor => {
   if (!haveEqualShape(t1, t2)) {
