@@ -3,7 +3,6 @@ import {
   add,
   createTensorByDimensions,
   createTensorFromArray,
-  dotProduct,
   equalShape,
   getDimensions,
   getScalarAt,
@@ -45,49 +44,6 @@ describe('Tensor', () => {
 
     test.skip('Trying to create matrix with vectors of different lengths throws error', () => {
       expect(() => createTensorFromArray([[1, 2], [3]])).toThrowError('Sub tensors have unequal length');
-    });
-  });
-
-  describe('dot product', () => {
-    test('if tensors have different dimensions throw error', () => {
-      const t1 = createTensorFromArray([1, 2]);
-      const t2 = createTensorFromArray([1, 2, 3]);
-      expect(() => dotProduct(t1, t2)).toThrowError('tensors must have same dimensions');
-    });
-
-    test('dot product returns scalar', () => {
-      const t1 = createTensorFromArray(2);
-      const t2 = createTensorFromArray(4);
-      const scalar = dotProduct(t1, t2);
-      // expect(scalar).toBeInstanceOf(Tensor2);
-      expect(scalar).toBeTypeOf('number');
-    });
-
-    test('dot product of scalars', () => {
-      const t1 = createTensorFromArray(2);
-      const t2 = createTensorFromArray(4);
-      const scalar = dotProduct(t1, t2);
-      expect(scalar).toBe(8);
-    });
-
-    test('dot product of vectors is sum of dot products of respective scalars', () => {
-      const t1 = createTensorFromArray([2, 3]);
-      const t2 = createTensorFromArray([2, 2]);
-      const scalar = dotProduct(t1, t2);
-      expect(scalar).toBe(10);
-    });
-
-    test('dot product of matrices is sum of dot products of respective vectors', () => {
-      const t1 = createTensorFromArray([
-        [1, 2],
-        [3, 4],
-      ]);
-      const t2 = createTensorFromArray([
-        [2, 2],
-        [2, 2],
-      ]);
-      const scalar = dotProduct(t1, t2);
-      expect(scalar).toBe(20);
     });
   });
 

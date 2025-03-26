@@ -1,10 +1,10 @@
 import sharp from 'sharp';
 import { createTensorFromArray, getDimensions } from './tensor/tensor';
-import { contrastStretch } from './image-operations/contrastStretch';
-import { adjustBrightness } from './image-operations/adjustBrightness';
-import { invert } from './image-operations/invert';
-import { log } from './image-operations/log';
-import { gamma } from './image-operations/gamma';
+import { contrastStretch } from './image-operations/filters/contrastStretch';
+import { adjustBrightness } from './image-operations/filters/adjustBrightness';
+import { invert } from './image-operations/filters/invert';
+import { log } from './image-operations/filters/log';
+import { gamma } from './image-operations/filters/gamma';
 import { verticalFlip } from './image-operations/geometric-transformation/verticalFlip';
 import { horizontalFlip } from './image-operations/geometric-transformation/horizontalFlip';
 import { translate } from './image-operations/geometric-transformation/translation';

@@ -71,18 +71,3 @@ export const add = (t1: Tensor, t2: Tensor): Tensor => {
   }
   return (t1 as number) + (t2 as number);
 };
-
-const dotProductRec = (t1: Tensor, t2: Tensor): Tensor => {
-  if (Array.isArray(t1) && Array.isArray(t2)) {
-    const sum = t1.reduce((pre, cur, index) => (dotProductRec(cur, t2[index]) as number) + (pre as number), 0);
-    return sum;
-  }
-  return (t1 as number) * (t2 as number);
-};
-
-export const dotProduct = (t1: Tensor, t2: Tensor): Tensor => {
-  if (!equalShape(t1, t2)) {
-    throw new Error('tensors must have same dimensions');
-  }
-  return dotProductRec(t1, t2);
-};
