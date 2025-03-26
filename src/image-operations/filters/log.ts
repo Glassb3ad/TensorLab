@@ -1,4 +1,4 @@
-import { max } from '../../tensor/max';
+import { max } from '../../tensor/properties/max';
 import { pointwise } from '../../tensor/pointwise-operations';
 import { Tensor } from '../../tensor/types';
 

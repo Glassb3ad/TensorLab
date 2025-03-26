@@ -1,6 +1,6 @@
 import { Tensor } from '../../tensor/types';
 import { pointwise } from '../../tensor/pointwise-operations';
-import { max } from '../../tensor/max';
+import { max } from '../../tensor/properties/max';
 
 export const invert = (tensor: Tensor) => {
   const maxValue = max(tensor) ?? 255;

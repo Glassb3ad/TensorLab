@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { min } from '../../src/tensor/min';
-import { Tensor } from '../../src/tensor/types';
+import { Tensor } from '../../../src/tensor/types';
+import { min } from '../../../src/tensor/properties/min';
 
 describe('min', () => {
   test('return argument itself when argument is scalar', () => {
