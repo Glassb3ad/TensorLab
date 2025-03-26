@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../../src/tensor/types';
-import { log } from '../../src/image-operations/log';
+import { Tensor } from '../../../src/tensor/types';
+import { log } from '../../../src/image-operations/filters/log';
 
 describe('invert', () => {
   test('255 scalar should remain as 255', () => {

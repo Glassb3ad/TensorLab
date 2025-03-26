@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../../src/tensor/types';
-import { contrastStretch } from '../../src/image-operations/contrastStretch';
+import { Tensor } from '../../../src/tensor/types';
+import { contrastStretch } from '../../../src/image-operations/filters/contrastStretch';
 import fc from 'fast-check';
 
 describe('contrast stretch', () => {

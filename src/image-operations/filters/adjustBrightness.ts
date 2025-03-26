@@ -1,5 +1,5 @@
-import { pointwise } from '../tensor/pointwise-operations';
-import { Tensor } from '../tensor/types';
+import { pointwise } from '../../tensor/pointwise-operations';
+import { Tensor } from '../../tensor/types';
 
 export const adjustBrightness = (tensor: Tensor, magnitude: number, max = 255, min = 0) => {
   const modifyIntensity = (intensity: number) => {
