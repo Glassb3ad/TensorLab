@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../../src/tensor/tensor';
+import { Tensor } from '../../src/tensor/types';
 import { invert } from '../../src/image-operations/invert';
 import fc from 'fast-check';
 import { max } from '../../src/tensor/recursive-operations';

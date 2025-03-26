@@ -1,4 +1,5 @@
-import { Coordinates, isMatrix, Tensor } from '../../tensor/tensor';
+import { isMatrix } from '../../tensor/tensor';
+import { Coordinates, Tensor } from '../../tensor/types';
 import { inverseGeometricTransform } from './inverseGeometricTransform';
 
 const nearestNeighborInterpolation = (coordinates: Coordinates) => coordinates.map(Math.round);

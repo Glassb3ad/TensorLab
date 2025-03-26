@@ -1,4 +1,5 @@
-import { Coordinates, isScalar, Tensor } from './tensor';
+import { isScalar } from './tensor';
+import { Coordinates, Tensor } from './types';
 
 export const fold = <T>(
   tensor: Tensor,

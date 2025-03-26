@@ -1,7 +1,8 @@
 import { expect, test, describe } from 'vitest';
-import { createTensorFromArray, Tensor } from '../src/tensor/tensor';
+import { createTensorFromArray } from '../src/tensor/tensor';
 import fc from 'fast-check';
 import { mapToZero, pointwise, treshold } from '../src/tensor/pointwise-operations';
+import { Tensor } from '../src/tensor/types';
 
 describe('point-wise', () => {
   test('add 1 to scalar', () => {

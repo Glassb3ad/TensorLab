@@ -11,9 +11,9 @@ import {
   isMatrix,
   isScalar,
   isVector,
-  Tensor,
 } from '../src/tensor/tensor';
 import fc from 'fast-check';
+import { Tensor } from '../src/tensor/types';
 
 describe('Tensor', () => {
   describe('Tenso from array', () => {

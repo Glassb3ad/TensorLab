@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../../../src/tensor/tensor';
+import { Tensor } from '../../../src/tensor/types';
 import { scale } from '../../../src/image-operations/geometric-transformation/scale';
 
 describe('scale', () => {

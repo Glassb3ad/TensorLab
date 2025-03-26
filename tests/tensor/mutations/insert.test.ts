@@ -1,7 +1,7 @@
 import { expect, test, describe } from 'vitest';
 import fc from 'fast-check';
 import { insert } from '../../../src/tensor/mutations/insert';
-import { Tensor } from '../../../src/tensor/tensor';
+import { Tensor } from '../../../src/tensor/types';
 
 describe('insert', () => {
   test('adding new value to vector, changes only the scalar in given location', () => {

@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { Coordinates, Tensor } from '../src/tensor/tensor';
+import { Coordinates, Tensor } from '../src/tensor/types';
 import { fold, map, max, min } from '../src/tensor/recursive-operations';
 import fc from 'fast-check';
 

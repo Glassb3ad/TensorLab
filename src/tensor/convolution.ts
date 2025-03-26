@@ -1,4 +1,5 @@
-import { add, dotProduct, isScalar, isVector, Tensor } from './tensor';
+import { add, dotProduct, isScalar, isVector } from './tensor';
+import { Tensor } from './types';
 
 export function sliceTensorByKernel(t1: Tensor, kernel: Tensor): Array<Tensor> {
   if (isScalar(t1) || isScalar(kernel)) {
