@@ -1,5 +1,5 @@
 import { Tensor } from '../../tensor/types';
-import { pointwise } from '../../tensor/pointwise-operations';
+import { pointwise } from '../../tensor/operations/pointwise';
 import { max } from '../../tensor/properties/max';
 
 export const invert = (tensor: Tensor) => {
