@@ -1,8 +1,8 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../../../src/tensor/types';
-import { invert } from '../../../src/image-operations/filters/invert';
+import { Tensor } from '@tensor/types';
+import { invert } from '@image/filters/invert';
 import fc from 'fast-check';
-import { max } from '../../../src/tensor/properties/max';
+import { max } from '@tensor/properties/max';
 
 describe('invert', () => {
   test('All scalars become 8 - scalar when 8 is max value in tensor', () => {

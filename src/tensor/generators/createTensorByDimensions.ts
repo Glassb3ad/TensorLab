@@ -1,4 +1,4 @@
-import { Dimensions, Tensor } from '../types';
+import { Dimensions, Tensor } from '@tensor/types';
 
 export const createTensorByDimensions = (dimensions: Dimensions, defaultScalar = 0): Tensor => {
   if (dimensions.length === 0) {

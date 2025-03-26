@@ -1,6 +1,6 @@
-import { max } from '../../tensor/properties/max';
-import { pointwise } from '../../tensor/operations/pointwise';
-import { Tensor } from '../../tensor/types';
+import { max } from '@tensor/properties/max';
+import { pointwise } from '@tensor/operations/pointwise';
+import { Tensor } from '@tensor/types';
 
 //Note: this function fails when tensors max value is zero
 export const log = (tensor: Tensor) => {

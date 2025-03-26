@@ -1,5 +1,5 @@
-import { isScalar, isVector } from '../predicates/shapePredicates';
-import { Coordinates, Tensor } from '../types';
+import { isScalar, isVector } from '@tensor/predicates/shapePredicates';
+import { Tensor, Coordinates } from '@tensor/types';
 
 const insertRec = (tensor: Tensor, value: number, insertTo: Coordinates) => {
   if (!tensor || isScalar(tensor)) {

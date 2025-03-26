@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { pointwise } from '../../../src/tensor/operations/pointwise';
+import { pointwise } from '@tensor/operations/pointwise';
 
 describe('point-wise', () => {
   test('add 1 to scalar', () => {

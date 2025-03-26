@@ -1,4 +1,4 @@
-import { Tensor } from '../types';
+import { Tensor } from '@tensor/types';
 
 export const pointwise = (tensor: Tensor, operation: (arg: number) => number): Tensor => {
   if (Array.isArray(tensor)) {

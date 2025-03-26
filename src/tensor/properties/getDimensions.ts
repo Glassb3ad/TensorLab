@@ -1,5 +1,5 @@
-import { isScalar } from '../predicates/shapePredicates';
-import { Tensor, Dimensions } from '../types';
+import { isScalar } from '@tensor/predicates/shapePredicates';
+import { Tensor, Dimensions } from '@tensor/types';
 
 const getDimensionsRec = (tensor: Tensor | undefined, dimensions: Dimensions = []): Dimensions => {
   if (!tensor || isScalar(tensor)) {

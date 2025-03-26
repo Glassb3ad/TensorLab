@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest';
-import { max } from '../../../src/tensor/properties/max';
-import { Tensor } from '../../../src/tensor/types';
+import { max } from '@tensor/properties/max';
+import { Tensor } from '@tensor/types';
 
 describe('max', () => {
   test('return argument itself when argument is scalar', () => {

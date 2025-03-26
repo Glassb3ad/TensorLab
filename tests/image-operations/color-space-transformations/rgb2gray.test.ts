@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
-import { rgb2gray } from '../../../src/image-operations/color-space-transformations/rgb2gray';
-import { isMatrix } from '../../../src/tensor/predicates/shapePredicates';
+import { rgb2gray } from '@image/color-space-transformations/rgb2gray';
+import { isMatrix } from '@tensor/predicates/shapePredicates';
 
 const R = [[100]];
 const G = [[150]];

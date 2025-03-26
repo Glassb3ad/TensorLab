@@ -1,7 +1,7 @@
-import { Tensor } from '../../tensor/types';
-import { pointwise } from '../../tensor/operations/pointwise';
-import { max } from '../../tensor/properties/max';
-import { min } from '../../tensor/properties/min';
+import { Tensor } from '@tensor/types';
+import { pointwise } from '@tensor/operations/pointwise';
+import { max } from '@tensor/properties/max';
+import { min } from '@tensor/properties/min';
 
 export const contrastStretch = (image: Tensor, globalMax: number, defaultMax = 255, defaultMin = 0) => {
   const maxVal: number = max(image) ?? defaultMax;

@@ -1,4 +1,4 @@
-import { Tensor } from '../types';
+import { Tensor } from '@tensor/types';
 import { pointwise } from './pointwise';
 
 export const mapToZero = (tensor: Tensor): Tensor => {

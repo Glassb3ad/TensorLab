@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { add } from '../../../src/tensor/operations/add';
+import { add } from '@tensor/operations/add';
 
 describe('Tensor addition', () => {
   test('if tensors have different dimensions throw error', () => {

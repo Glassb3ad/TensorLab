@@ -7,7 +7,12 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@tensor/*": ["./src/tensor/*"],
+      "@image/*": ["./src/image-operations/*"]
+    }
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules"]

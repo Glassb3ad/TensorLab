@@ -1,7 +1,7 @@
 import fc from 'fast-check';
 import { describe, test, expect } from 'vitest';
-import { mapToZero } from '../../../src/tensor/operations/mapToZero';
-import { Tensor } from '../../../src/tensor/types';
+import { mapToZero } from '@tensor/operations/mapToZero';
+import { Tensor } from '@tensor/types';
 
 describe('mapToZero', () => {
   test('All scalars in vector are changed to zero', () => {

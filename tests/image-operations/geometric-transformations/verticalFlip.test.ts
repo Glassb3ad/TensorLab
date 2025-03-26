@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../../../src/tensor/types';
-import { verticalFlip } from '../../../src/image-operations/geometric-transformation/verticalFlip';
+import { Tensor } from '@tensor/types';
+import { verticalFlip } from '@image/geometric-transformation/verticalFlip';
 import fc from 'fast-check';
 
 describe('Vertical flip', () => {

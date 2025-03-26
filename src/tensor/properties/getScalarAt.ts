@@ -1,5 +1,5 @@
-import { isScalar } from '../predicates/shapePredicates';
-import { Tensor, Coordinates } from '../types';
+import { isScalar } from '@tensor/predicates/shapePredicates';
+import { Tensor, Coordinates } from '@tensor/types';
 
 export const getScalarAt = (tensor: Tensor, coordinates: Coordinates, fallback: number): number => {
   const keepSearching = coordinates.length !== 0;

@@ -1,4 +1,4 @@
-import { Tensor } from '../types';
+import { Tensor } from '@tensor/types';
 
 export const isScalar = (t: Tensor) => typeof t === 'number';
 

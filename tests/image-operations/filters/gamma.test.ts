@@ -1,7 +1,7 @@
 import { expect, test, describe } from 'vitest';
-import { gamma } from '../../../src/image-operations/filters/gamma';
+import { gamma } from '@image/filters/gamma';
 import fc from 'fast-check';
-import { Tensor } from '../../../src/tensor/types';
+import { Tensor } from '@tensor/types';
 
 describe('gamma', () => {
   test('Increase scalar when gamma is 0 < gamma < 1', () => {

@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { getScalarAt } from '../../../src/tensor/properties/getScalarAt';
+import { getScalarAt } from '@tensor/properties/getScalarAt';
 
 describe('getScalarAt', () => {
   test('return tensor when tensor is scalar and coordinates are empty', () => {

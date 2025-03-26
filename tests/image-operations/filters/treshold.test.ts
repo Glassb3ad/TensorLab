@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'vitest';
-import { treshold } from '../../../src/image-operations/filters/treshold';
+import { treshold } from '@image/filters/treshold';
 
 describe('Treshold', () => {
   test('Get 0 when treshold is 0.5 and scalar 0.2', () => {

@@ -1,6 +1,6 @@
 import fc from 'fast-check';
 import { describe, test, expect } from 'vitest';
-import { getDimensions } from '../../../src/tensor/properties/getDimensions';
+import { getDimensions } from '@tensor/properties/getDimensions';
 
 describe('getDimensions', () => {
   test('Scalar has dimension []', () => {

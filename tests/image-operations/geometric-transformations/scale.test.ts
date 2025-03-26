@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../../../src/tensor/types';
-import { scale } from '../../../src/image-operations/geometric-transformation/scale';
+import { Tensor } from '@tensor/types';
+import { scale } from '@image/geometric-transformation/scale';
 
 describe('scale', () => {
   test('scale 2x vertically ', () => {
