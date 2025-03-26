@@ -1,5 +1,5 @@
+import { max } from '../../tensor/max';
 import { pointwise } from '../../tensor/pointwise-operations';
-import { max } from '../../tensor/recursive-operations';
 import { Tensor } from '../../tensor/types';
 
 //Note: this function fails when tensors max value is zero
