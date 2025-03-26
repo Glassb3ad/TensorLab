@@ -1,9 +1,9 @@
 import { insert } from '../../tensor/mutations/insert';
 import { mapToZero } from '../../tensor/pointwise-operations';
 import { fold } from '../../tensor/fold';
-import { createTensorByDimensions } from '../../tensor/tensor';
 import { Coordinates, Tensor } from '../../tensor/types';
 import { getScalarAt } from '../../tensor/properties/getScalarAt';
+import { createTensorByDimensions } from '../../tensor/createTensorByDimensions';
 
 const resizeTensor = (tensor: Tensor, transform: (coordinates: Coordinates) => Coordinates) => {
   const maxCoordinates = fold<Coordinates>(

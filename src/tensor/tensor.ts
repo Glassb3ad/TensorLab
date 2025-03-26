@@ -1,21 +1,11 @@
 import { haveEqualShape } from './shapePredicates';
-import { Dimensions, Tensor } from './types';
+import { Tensor } from './types';
 
 type TensorArg = Array<TensorArg> | number;
 
 export const createTensorFromArray = (tensor: TensorArg): Tensor => {
   //TODO check that arrays have the same length
   return tensor;
-};
-
-export const createTensorByDimensions = (dimensions: Dimensions, defaultScalar = 0): Tensor => {
-  if (dimensions.length === 0) {
-    return defaultScalar;
-  }
-  const [first, ...rest] = dimensions;
-  return Array(first)
-    .fill(null)
-    .map(() => createTensorByDimensions(rest, defaultScalar));
 };
 
 export const add = (t1: Tensor, t2: Tensor): Tensor => {
