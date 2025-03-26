@@ -3,7 +3,7 @@ import { Tensor } from '@tensor/types';
 
 export const add = (t1: Tensor, t2: Tensor): Tensor => {
   if (!haveEqualShape(t1, t2)) {
-    throw new Error('tensors have unequal dimensions');
+    throw new Error('tensors have different shapes');
   }
   if (Array.isArray(t1) && Array.isArray(t2)) {
     return t1.map((tensor, index) => add(tensor, t2[index]));

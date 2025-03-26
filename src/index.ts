@@ -9,7 +9,7 @@ import { horizontalFlip } from './image-operations/geometric-transformation/hori
 import { translate } from './image-operations/geometric-transformation/translation';
 import { scale } from './image-operations/geometric-transformation/scale';
 import { Tensor } from './tensor/types';
-import { getDimensions } from './tensor/properties/getDimensions';
+import { getShape } from './tensor/properties/getShape';
 
 // Function to read a JPG image and convert it to a 3 x n x m array
 async function readImageToArray(filePath: string): Promise<number[][][]> {
@@ -155,10 +155,10 @@ readGrayscaleToArray('contrast-test.png').then(async array => {
   const gammaBright = gamma(tensor, 0.55) as number[][];
 
   console.log('stretched picture');
-  console.log(getDimensions(stretched));
+  console.log(getShape(stretched));
   await arrayToGrayscale(stretched, 'stretched.jpg');
   console.log('scaled picture');
-  console.log(getDimensions(scaled));
+  console.log(getShape(scaled));
   await arrayToGrayscale(scaled, 'scaled.jpg');
   console.log('translated picture');
   await arrayToGrayscale(translated, 'translated.jpg');

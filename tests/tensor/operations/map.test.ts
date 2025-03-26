@@ -4,7 +4,7 @@ import { map } from '@tensor/operations/map';
 import { Tensor } from '@tensor/types';
 
 describe('map', () => {
-  test('Preserve vector dimensionality', () => {
+  test('Preserve vector shape', () => {
     fc.assert(
       fc.property(fc.array(fc.integer({ min: 0, max: 255 })), vector => {
         const mappedVector = map(vector, a => a);
@@ -13,7 +13,7 @@ describe('map', () => {
     );
   });
 
-  test('Preserve matrix dimensionality', () => {
+  test('Preserve matrix shape', () => {
     fc.assert(
       fc.property(fc.array(fc.array(fc.integer({ min: 0, max: 255 }), { maxLength: 10, minLength: 10 })), matrix => {
         const mappedMatrix = map(matrix, a => a) as Array<Array<Tensor>>;
@@ -22,7 +22,7 @@ describe('map', () => {
     );
   });
 
-  test('Preserve 3d tensor dimensionality', () => {
+  test('Preserve 3d tensor shape', () => {
     fc.assert(
       fc.property(
         fc.array(

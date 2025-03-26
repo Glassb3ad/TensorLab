@@ -1,29 +1,29 @@
 import fc from 'fast-check';
 import { describe, test, expect } from 'vitest';
-import { getDimensions } from '@tensor/properties/getDimensions';
+import { getShape } from '@/tensor/properties/getShape';
 
-describe('getDimensions', () => {
-  test('Scalar has dimension []', () => {
-    const dimensions = getDimensions(1);
-    expect(dimensions).toEqual([]);
+describe('getShape', () => {
+  test('Scalar has shape []', () => {
+    const shape = getShape(1);
+    expect(shape).toEqual([]);
   });
 
-  test('Vector has dimension [vector.length]', () => {
+  test('Vector has shape [vector.length]', () => {
     fc.assert(
       fc.property(fc.array(fc.integer({ min: 0, max: 255 })), vector => {
-        const dimension = getDimensions(vector);
-        expect(dimension).toEqual([vector.length]);
+        const shape = getShape(vector);
+        expect(shape).toEqual([vector.length]);
       }),
     );
   });
 
-  test('Matrix has dimension [matrix.length, vector.length]', () => {
+  test('Matrix has shape [matrix.length, vector.length]', () => {
     fc.assert(
       fc.property(
         fc.array(fc.array(fc.integer({ min: 0, max: 255 }), { minLength: 10, maxLength: 10 }), { minLength: 1 }),
         matrix => {
-          const dimension = getDimensions(matrix);
-          expect(dimension).toEqual([matrix.length, matrix[0].length]);
+          const shape = getShape(matrix);
+          expect(shape).toEqual([matrix.length, matrix[0].length]);
         },
       ),
     );

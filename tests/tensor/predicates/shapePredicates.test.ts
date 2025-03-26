@@ -38,7 +38,7 @@ describe('isMatrix', () => {
 });
 
 describe('i3d', () => {
-  test('return true when tensor had 3 dimensions', () => {
+  test('return true when tensor has 3 dimensions', () => {
     const tensor = [[[1]], [[2]]];
     expect(is3D(tensor)).toBe(true);
   });

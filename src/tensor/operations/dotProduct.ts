@@ -11,7 +11,7 @@ const dotProductRec = (t1: Tensor, t2: Tensor): Tensor => {
 
 export const dotProduct = (t1: Tensor, t2: Tensor): Tensor => {
   if (!haveEqualShape(t1, t2)) {
-    throw new Error('tensors must have same dimensions');
+    throw new Error('tensors must have the same shape');
   }
   return dotProductRec(t1, t2);
 };

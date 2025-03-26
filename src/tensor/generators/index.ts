@@ -1,1 +1,1 @@
-export * from './createTensorByDimensions';
+export * from './createTensorByShape';

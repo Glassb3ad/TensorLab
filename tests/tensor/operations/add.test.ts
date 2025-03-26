@@ -2,10 +2,10 @@ import { describe, test, expect } from 'vitest';
 import { add } from '@tensor/operations/add';
 
 describe('Tensor addition', () => {
-  test('if tensors have different dimensions throw error', () => {
+  test('if tensors have different shapes throw error', () => {
     const t1 = [1, 2];
     const t2 = [1, 2, 3];
-    expect(() => add(t1, t2)).toThrowError('tensors have unequal dimensions');
+    expect(() => add(t1, t2)).toThrowError('tensors have different shapes');
   });
 
   test('two scalars', () => {

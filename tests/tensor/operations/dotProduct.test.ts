@@ -2,10 +2,10 @@ import { describe, expect, test } from 'vitest';
 import { dotProduct } from '@tensor/operations/dotProduct';
 
 describe('dot product', () => {
-  test('if tensors have different dimensions throw error', () => {
+  test('if tensors have different shape throw error', () => {
     const t1 = [1, 2];
     const t2 = [1, 2, 3];
-    expect(() => dotProduct(t1, t2)).toThrowError('tensors must have same dimensions');
+    expect(() => dotProduct(t1, t2)).toThrowError('tensors must have the same shape');
   });
 
   test('dot product returns scalar', () => {

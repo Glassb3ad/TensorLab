@@ -2,7 +2,7 @@ import { insert } from '@tensor/mutations/insert';
 import { fold } from '@tensor/operations/fold';
 import { Coordinates, Tensor } from '@tensor/types';
 import { getScalarAt } from '@tensor/properties/getScalarAt';
-import { createTensorByDimensions } from '@tensor/generators/createTensorByDimensions';
+import { createTensorByShape } from '@/tensor/generators/createTensorByShape';
 import { mapToZero } from '@tensor/operations/mapToZero';
 
 const resizeTensor = (tensor: Tensor, transform: (coordinates: Coordinates) => Coordinates) => {
@@ -15,8 +15,8 @@ const resizeTensor = (tensor: Tensor, transform: (coordinates: Coordinates) => C
     [0, 0],
   );
   // add 1 to max coordinates to get dimeansiont since length = max coordinate + 1
-  const dimensions = maxCoordinates.map(a => a + 1);
-  return createTensorByDimensions(dimensions, 255);
+  const shape = maxCoordinates.map(a => a + 1);
+  return createTensorByShape(shape, 255);
 };
 
 export const inverseGeometricTransform = (
