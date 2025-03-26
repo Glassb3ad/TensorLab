@@ -1,4 +1,4 @@
-import { fold } from './recursive-operations';
+import { fold } from './fold';
 import { Tensor, Coordinates } from './types';
 
 const pushToTensorArray = (tensor: Array<Tensor>, coordinates: Coordinates, value: Tensor): Array<Tensor> => {

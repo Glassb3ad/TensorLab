@@ -1,4 +1,4 @@
-import { fold } from './recursive-operations';
+import { fold } from './fold';
 import { Tensor } from './types';
 
 export const max = (tensor: Tensor) => {
