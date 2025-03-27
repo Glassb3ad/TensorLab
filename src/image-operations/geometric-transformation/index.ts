@@ -1,4 +1,4 @@
-export * from './horizontalFlip';
-export * from './scale';
-export * from './translation';
-export * from './verticalFlip';
+export { horizontalFlip } from './horizontalFlip';
+export { scale } from './scale';
+export { translate } from './translation';
+export { verticalFlip } from './verticalFlip';

@@ -1,6 +1,6 @@
-export * from './adjustBrightness';
-export * from './gamma';
-export * from './contrastStretch';
-export * from './invert';
-export * from './log';
-export * from './treshold';
+export { adjustBrightness } from './adjustBrightness';
+export { gamma } from './gamma';
+export { contrastStretch } from './contrastStretch';
+export { invert } from './invert';
+export { log } from './log';
+export { treshold } from './treshold';
