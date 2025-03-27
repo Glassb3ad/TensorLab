@@ -15,7 +15,7 @@ const insertRec = (tensor: Tensor, value: number, insertTo: Coordinates) => {
   insertRec(tensor[index], value, rest);
 };
 
-const insertRaw = (tensor: Tensor, value: number, insertTo: Coordinates) => {
+export const insertRaw = (tensor: Tensor, value: number, insertTo: Coordinates) => {
   insertRec(tensor, value, insertTo);
   return tensor;
 };

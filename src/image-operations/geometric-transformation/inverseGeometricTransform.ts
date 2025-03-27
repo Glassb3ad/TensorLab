@@ -1,7 +1,7 @@
-import { insert } from '@tensor/mutations/insert';
+import { insertRaw } from '@tensor/mutations/insert';
 import { fold } from '@tensor/operations/fold';
 import { Coordinates, Tensor } from '@tensor/types';
-import { getScalarAt } from '@tensor/properties/getScalarAt';
+import { getScalarAtRaw } from '@tensor/properties/getScalarAt';
 import { createTensorByShape } from '@/tensor/generators/createTensorByShape';
 import { mapToZero } from '@tensor/operations/mapToZero';
 import { tensorGuard } from '@/tensor/tensorGuard';
@@ -34,8 +34,8 @@ const inverseGeometricTransformRaw = (
     (agg: Tensor, _cur: number, coordinates: Coordinates) => {
       const locationInTensor = transformCoordinates(coordinates);
       if (locationInTensor.every(coordinate => coordinate >= 0)) {
-        const scalar = getScalarAt(tensor, locationInTensor, fallback);
-        return insert(agg, scalar, coordinates);
+        const scalar = getScalarAtRaw(tensor, locationInTensor, fallback);
+        return insertRaw(agg, scalar, coordinates);
       }
       return agg;
     },

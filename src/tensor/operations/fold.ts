@@ -1,24 +1,19 @@
-import { isScalar } from '@tensor/predicates/shapePredicates';
+import { isScalar, isVector } from '@tensor/predicates/shapePredicates';
 import { Coordinates, Tensor } from '@tensor/types';
 
 export const fold = <T>(
   tensor: Tensor,
-  func: (agg: T, cur: number, coordinates: Coordinates) => T,
-  agg: T,
-  coordinates: Coordinates = [0],
+  func: (acc: T, cur: number, coordinates: Coordinates) => T,
+  acc: T,
+  coordinates: Coordinates = [],
 ): T => {
   if (isScalar(tensor)) {
-    return func(agg, tensor, coordinates);
+    return func(acc, tensor, coordinates);
   }
-  if (tensor.length === 0) {
-    return agg;
+  const moveHorizontally = isVector(tensor);
+  if (moveHorizontally) {
+    return tensor.reduce((acc2, cur, i) => fold<T>(cur, func, acc2, [...coordinates, i]), acc);
+  } else {
+    return tensor.reduce((acc2, cur, i) => fold<T>(cur, func, acc2, [...coordinates, i]), acc);
   }
-  const [fst, ...rest] = tensor;
-
-  const moveVertically = !isScalar(fst);
-  const newAgg = fold(fst, func, agg, moveVertically ? [...coordinates, 0] : coordinates);
-
-  const firstCoordinates = coordinates.slice(0, -1);
-  const lastCoordinate = coordinates[coordinates.length - 1];
-  return fold(rest, func, newAgg, [...firstCoordinates, lastCoordinate + 1]);
 };

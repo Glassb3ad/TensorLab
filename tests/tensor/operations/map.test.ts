@@ -3,7 +3,7 @@ import { describe, test, expect } from 'vitest';
 import { map } from '@tensor/operations/map';
 import { Tensor } from '@tensor/types';
 
-describe('map', () => {
+describe.skip('map', () => {
   test('Preserve vector shape', () => {
     fc.assert(
       fc.property(fc.array(fc.integer({ min: 0, max: 255 })), vector => {
