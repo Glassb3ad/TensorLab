@@ -6,9 +6,7 @@ const haveSameLength = (arr: Array<unknown>) => {
   return lengths.every(a => a === lengths[0]);
 };
 
-type MightBeTensor = Array<MightBeTensor> | number;
-
-export const isTensor = (t: MightBeTensor): t is Tensor => {
+export const isTensor = (t: unknown): t is Tensor => {
   if (typeof t === 'number') {
     return true;
   }
