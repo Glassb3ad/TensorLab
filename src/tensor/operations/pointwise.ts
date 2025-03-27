@@ -1,8 +1,11 @@
 import { Tensor } from '@tensor/types';
+import { tensorGuard } from '@tensor/tensorGuard';
 
-export const pointwise = (tensor: Tensor, operation: (arg: number) => number): Tensor => {
+const pointwiseRaw = (tensor: Tensor, operation: (arg: number) => number): Tensor => {
   if (Array.isArray(tensor)) {
-    return tensor.map(t => pointwise(t, operation));
+    return tensor.map(t => pointwiseRaw(t, operation));
   }
   return operation(tensor);
 };
+
+export const pointwise = tensorGuard(pointwiseRaw);

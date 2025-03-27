@@ -1,7 +1,8 @@
 import { haveEqualShape } from '@tensor/predicates/shapePredicates';
 import { Tensor } from '@tensor/types';
+import { tensorGuard } from '../tensorGuard';
 
-export const add = (t1: Tensor, t2: Tensor): Tensor => {
+const addRaw = (t1: Tensor, t2: Tensor): Tensor => {
   if (!haveEqualShape(t1, t2)) {
     throw new Error('tensors have different shapes');
   }
@@ -10,3 +11,5 @@ export const add = (t1: Tensor, t2: Tensor): Tensor => {
   }
   return (t1 as number) + (t2 as number);
 };
+
+export const add = tensorGuard(addRaw);
