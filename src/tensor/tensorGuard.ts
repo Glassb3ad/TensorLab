@@ -1,6 +1,6 @@
 import { isTensor } from './predicates/isTensor';
 
-export const validateTensor =
+export const tensorGuard =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   <T extends (...args: Array<any>) => any>(func: T) =>
     (...args: Parameters<T>): ReturnType<T> => {
