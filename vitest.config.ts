@@ -4,6 +4,8 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
+    globals: true,
+    environment: 'node',
     coverage: {
       reporter: ['text', 'html'],
       thresholds: {
@@ -12,7 +14,7 @@ export default defineConfig({
         functions: 90,
         lines: 90,
       },
-      exclude: ['node_modules', '**/*config.*', 'src/index.ts'],
+      exclude: ['node_modules', '**/*config.*'],
     },
   },
 });
