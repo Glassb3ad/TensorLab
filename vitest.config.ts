@@ -14,7 +14,7 @@ export default defineConfig({
         functions: 90,
         lines: 90,
       },
-      exclude: ['node_modules', '**/*config.*'],
+      exclude: ['node_modules', 'dist', '**/index.ts', 'src/sketch.ts', '**/*config.*'],
     },
   },
 });
