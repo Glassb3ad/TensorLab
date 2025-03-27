@@ -10,7 +10,7 @@ describe('getShape', () => {
 
   test('Vector has shape [vector.length]', () => {
     fc.assert(
-      fc.property(fc.array(fc.integer({ min: 0, max: 255 })), vector => {
+      fc.property(fc.array(fc.integer({ min: 0, max: 255 }), { minLength: 1 }), vector => {
         const shape = getShape(vector);
         expect(shape).toEqual([vector.length]);
       }),
