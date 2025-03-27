@@ -5,7 +5,7 @@ import { contrastStretch, treshold } from '@image/filters';
 
 export const gray2binaryRaw = (image: Tensor) => {
   if (!isMatrix(image)) {
-    throw Error('Tensor is not grayscale');
+    throw Error('Image is not grayscale');
   }
   return treshold(contrastStretch(image, 255), Math.round(255 / 2), 255, 0);
 };
