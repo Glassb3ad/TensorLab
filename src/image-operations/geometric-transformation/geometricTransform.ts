@@ -1,9 +1,10 @@
+import { tensorGuard } from '@tensor/tensorGuard';
 import { insert } from '@tensor/mutations/insert';
 import { fold } from '@tensor/operations/fold';
 import { mapToZero } from '@tensor/operations/mapToZero';
 import { Coordinates, Tensor } from '@tensor/types';
 
-export const geometricTransform = (tensor: Tensor, transformCoordinates: (coordinates: Coordinates) => Coordinates) => {
+const geometricTransformRaw = (tensor: Tensor, transformCoordinates: (coordinates: Coordinates) => Coordinates) => {
   const result = mapToZero(tensor);
   return fold<Tensor>(
     tensor,
@@ -17,3 +18,5 @@ export const geometricTransform = (tensor: Tensor, transformCoordinates: (coordi
     result,
   );
 };
+
+export const geometricTransform = tensorGuard(geometricTransformRaw);

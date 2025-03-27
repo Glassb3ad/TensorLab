@@ -4,6 +4,7 @@ import { Coordinates, Tensor } from '@tensor/types';
 import { getScalarAt } from '@tensor/properties/getScalarAt';
 import { createTensorByShape } from '@/tensor/generators/createTensorByShape';
 import { mapToZero } from '@tensor/operations/mapToZero';
+import { tensorGuard } from '@/tensor/tensorGuard';
 
 const resizeTensor = (tensor: Tensor, transform: (coordinates: Coordinates) => Coordinates) => {
   const maxCoordinates = fold<Coordinates>(
@@ -19,7 +20,7 @@ const resizeTensor = (tensor: Tensor, transform: (coordinates: Coordinates) => C
   return createTensorByShape(shape, 255);
 };
 
-export const inverseGeometricTransform = (
+const inverseGeometricTransformRaw = (
   tensor: Tensor,
   transformCoordinates: (coordinates: Coordinates) => Coordinates,
   inverseTransformCoordinates?: (coordinates: Coordinates) => Coordinates,
@@ -41,3 +42,5 @@ export const inverseGeometricTransform = (
     aggTensor,
   );
 };
+
+export const inverseGeometricTransform = tensorGuard(inverseGeometricTransformRaw);
