@@ -4,7 +4,7 @@ import { max } from '@tensor/properties/max';
 import { tensorGuard } from '@tensor/tensorGuard';
 
 export const invertRaw = (tensor: Tensor) => {
-  const maxValue = max(tensor) ?? 255;
+  const maxValue = max(tensor);
   return pointwise(tensor, scalar => maxValue - scalar);
 };
 

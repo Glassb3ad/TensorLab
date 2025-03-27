@@ -22,8 +22,7 @@ describe('invert', () => {
   test('All scalars become max - scalar', () => {
     fc.assert(
       fc.property(fc.array(fc.integer({ min: 0, max: 255 }), { minLength: 1 }), vector => {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const maxValue = max(vector)!;
+        const maxValue = max(vector);
         const inverted = invert(vector);
         vector.forEach((element, i) => {
           expect(element).toBe(maxValue - (inverted as Array<number>)[i]);
