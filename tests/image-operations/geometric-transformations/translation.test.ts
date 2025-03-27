@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
-import { Tensor } from '../../../src/tensor';
-import { translate } from '../../../src/image-operations/geometric-transformation/translation';
+import { Tensor } from '@tensor/types';
+import { translate } from '@image/geometric-transformation/translation';
 
 describe('translation', () => {
   test('move one right-down', () => {

@@ -1,5 +1,7 @@
-import { Coordinates, isMatrix, Tensor } from '../../tensor';
+import { isMatrix } from '@tensor/predicates/shapePredicates';
+import { Coordinates, Tensor } from '@tensor/types';
 import { inverseGeometricTransform } from './inverseGeometricTransform';
+import { tensorGuard } from '@tensor/tensorGuard';
 
 const nearestNeighborInterpolation = (coordinates: Coordinates) => coordinates.map(Math.round);
 
@@ -11,7 +13,7 @@ const inverseTransform = (sx: number, sy: number) => (coordinates: Coordinates) 
   return nearestNeighborInterpolation([coordinates[0] * sy, coordinates[1] * sx]);
 };
 
-export const scale = (tensor: Tensor, sx: number, sy: number, resize = true, fallback = 0) => {
+export const scaleRaw = (tensor: Tensor, sx: number, sy: number, resize = true, fallback = 0) => {
   if (isMatrix(tensor)) {
     return inverseGeometricTransform(
       tensor,
@@ -22,3 +24,5 @@ export const scale = (tensor: Tensor, sx: number, sy: number, resize = true, fal
   }
   return tensor;
 };
+
+export const scale = tensorGuard(scaleRaw);

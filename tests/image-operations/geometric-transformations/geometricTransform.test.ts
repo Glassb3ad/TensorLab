@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'vitest';
-import { Coordinates, Tensor } from '../../../src/tensor';
-import { geometricTransform } from '../../../src/image-operations/geometric-transformation/geometricTransform';
+import { Coordinates, Tensor } from '@tensor/types';
+import { geometricTransform } from '@image/geometric-transformation/geometricTransform';
 
 describe('geometricTransform', () => {
   test('Move vector values to right by one', () => {
