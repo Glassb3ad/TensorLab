@@ -1,11 +1,12 @@
-import { Tensor } from '@tensor/types';
-import { pointwise } from '@tensor/operations/pointwise';
+import { Scalar, Tensor } from '@tensor/types';
+import { pointwiseRaw } from '@tensor/operations/pointwise';
 import { max } from '@tensor/properties/max';
 import { tensorGuard } from '@tensor/tensorGuard';
 
-export const invertRaw = (tensor: Tensor) => {
-  const maxValue = max(tensor);
-  return pointwise(tensor, scalar => maxValue - scalar);
+export const invertRaw = (image: Tensor) => {
+  const maxScalar = max(image);
+  const transformPixel = (pixel: Scalar) => maxScalar - pixel;
+  return pointwiseRaw(image, transformPixel);
 };
 
 export const invert = tensorGuard(invertRaw);

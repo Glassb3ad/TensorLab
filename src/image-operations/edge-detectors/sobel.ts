@@ -1,4 +1,4 @@
-import { convolution, isMatrix, Tensor } from '@/tensor';
+import { convolution, isMatrix, Scalar, Tensor } from '@/tensor';
 import { combine } from '@/tensor/operations/combine';
 import { tensorGuard } from '@/tensor/tensorGuard';
 
@@ -14,7 +14,7 @@ const kernelY = [
   [-1, -2, -1],
 ];
 
-const magnitude = (x: number, y: number) => Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+const magnitude = (x: Scalar, y: Scalar) => Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 
 const sobelRaw = (image: Tensor) => {
   if (!isMatrix(image)) {

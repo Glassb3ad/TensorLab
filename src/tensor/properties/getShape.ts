@@ -1,13 +1,13 @@
 import { isScalar } from '@tensor/predicates/shapePredicates';
 import { Tensor, Shape } from '@tensor/types';
-import { tensorGuard } from '../tensorGuard';
+import { tensorGuard } from '@tensor/tensorGuard';
 
-const getShapeRec = (tensor: Tensor | undefined, shape: Shape = []): Shape => {
-  if (!tensor || isScalar(tensor)) {
+const getShapeRec = (tensor: Tensor, shape: Shape = []): Shape => {
+  if (isScalar(tensor)) {
     return shape;
   }
   return getShapeRec(tensor[0], [...shape, tensor.length]);
 };
 
-const getShapeUnsafe = (tensor: Tensor) => getShapeRec(tensor);
-export const getShape = tensorGuard(getShapeUnsafe);
+export const getShapeRaw = (tensor: Tensor) => getShapeRec(tensor);
+export const getShape = tensorGuard(getShapeRaw);

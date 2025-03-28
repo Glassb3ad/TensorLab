@@ -1,20 +1,20 @@
 import { haveEqualShape } from '@tensor/predicates/shapePredicates';
-import { Tensor } from '@tensor/types';
+import { Scalar, Tensor } from '@tensor/types';
 import { tensorGuard } from '@tensor/tensorGuard';
 
-const dotProductRec = (t1: Tensor, t2: Tensor): Tensor => {
+const dotProductRec = (t1: Tensor, t2: Tensor): Scalar => {
   if (Array.isArray(t1) && Array.isArray(t2)) {
-    const sum = t1.reduce((pre, cur, index) => (dotProductRec(cur, t2[index]) as number) + (pre as number), 0);
+    const sum = t1.reduce((acc: Scalar, cur: Tensor, index) => dotProductRec(cur, t2[index]) + acc, 0);
     return sum;
   }
-  return (t1 as number) * (t2 as number);
+  return (t1 as Scalar) * (t2 as Scalar);
 };
 
-export const dotProductRaw = (t1: Tensor, t2: Tensor): Tensor => {
+export const dotProductRaw = (t1: Tensor, t2: Tensor): Scalar => {
   if (!haveEqualShape(t1, t2)) {
     throw new Error('tensors must have the same shape');
   }
   return dotProductRec(t1, t2);
 };
 
-export const dotProduct = tensorGuard(dotProductRaw);
+export const dotProduct = tensorGuard(dotProductRaw, 2);
