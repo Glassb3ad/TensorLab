@@ -1,3 +1,4 @@
+// TODO: Rethink how to do this
 import { insertRaw } from '@tensor/mutations/insert';
 import { fold } from '@tensor/operations/fold';
 import { Coordinates, Tensor } from '@tensor/types';
