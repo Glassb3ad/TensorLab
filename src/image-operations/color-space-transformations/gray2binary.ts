@@ -7,7 +7,7 @@ export const gray2binaryRaw = (image: Tensor) => {
   if (!isMatrix(image)) {
     throw Error('Image is not grayscale');
   }
-  return treshold(contrastStretch(image, 255), Math.round(255 / 2), 255, 0);
+  return treshold(contrastStretch(image), Math.round(255 / 2), 255, 0);
 };
 
 export const gray2binary = tensorGuard(gray2binaryRaw);
