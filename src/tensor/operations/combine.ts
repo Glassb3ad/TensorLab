@@ -7,7 +7,7 @@ const combineRawRec = (t1: Tensor, t2: Tensor, combineScalars: (x: Scalar, y: Sc
   if (!isScalar(t1) && !isScalar(t2)) {
     return t1.map((tensor, index) => combineRaw(tensor, t2[index], combineScalars));
   }
-  return combineScalars(t1 as number, t2 as number);
+  return combineScalars(t1 as Scalar, t2 as Scalar);
 };
 
 const combineRaw = (t1: Tensor, t2: Tensor, combineScalars: (x: Scalar, y: Scalar) => Scalar): Tensor => {
@@ -17,4 +17,4 @@ const combineRaw = (t1: Tensor, t2: Tensor, combineScalars: (x: Scalar, y: Scala
   return combineRawRec(t1, t2, combineScalars);
 };
 
-export const combine = tensorGuard(combineRaw);
+export const combine = tensorGuard(combineRaw, 2);

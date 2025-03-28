@@ -7,9 +7,9 @@ const addRaw = (t1: Tensor, t2: Tensor): Tensor => {
     throw new Error('tensors have different shapes');
   }
   if (Array.isArray(t1) && Array.isArray(t2)) {
-    return t1.map((tensor, index) => add(tensor, t2[index]));
+    return t1.map((tensor, index) => addRaw(tensor, t2[index]));
   }
   return (t1 as number) + (t2 as number);
 };
 
-export const add = tensorGuard(addRaw);
+export const add = tensorGuard(addRaw, 2);

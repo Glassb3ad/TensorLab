@@ -13,7 +13,7 @@ export const sliceTensorByKernel = (t1: Tensor, kernel: Tensor): Array<Tensor> =
   return [...Array(sliceCount).keys()].map(i => t1.slice(i, sliceLength + i));
 };
 
-export const vectorConvolution = (tensor: Tensor, kernel: Tensor): Tensor => {
+const vectorConvolution = (tensor: Tensor, kernel: Tensor): Tensor => {
   const slices = sliceTensorByKernel(tensor, kernel);
   return slices.map(slice => dotProduct(slice, kernel));
 };
@@ -40,4 +40,4 @@ const convolutionRaw = (tensor: Tensor, kernel: Tensor): Tensor => {
   return convolutedTensors;
 };
 
-export const convolution = tensorGuard(convolutionRaw);
+export const convolution = tensorGuard(convolutionRaw, 2);

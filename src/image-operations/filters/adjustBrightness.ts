@@ -1,5 +1,5 @@
 import { tensorGuard } from '@tensor/tensorGuard';
-import { pointwise } from '@tensor/operations/pointwise';
+import { pointwiseRaw } from '@tensor/operations/pointwise';
 import { Tensor } from '@tensor/types';
 
 export const adjustBrightnessRaw = (tensor: Tensor, magnitude: number, max = 255, min = 0) => {
@@ -7,7 +7,7 @@ export const adjustBrightnessRaw = (tensor: Tensor, magnitude: number, max = 255
     const newIntensity = intensity * magnitude;
     return Math.max(min, Math.min(newIntensity, max));
   };
-  return pointwise(tensor, modifyIntensity);
+  return pointwiseRaw(tensor, modifyIntensity);
 };
 
 export const adjustBrightness = tensorGuard(adjustBrightnessRaw);
