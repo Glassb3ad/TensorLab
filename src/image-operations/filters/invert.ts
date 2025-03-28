@@ -4,7 +4,8 @@ import { max } from '@tensor/properties/max';
 import { tensorGuard } from '@tensor/tensorGuard';
 
 export const invertRaw = (image: Tensor) => {
-  const transformPixel = (pixel: Scalar) => max(image) - pixel;
+  const maxScalar = max(image);
+  const transformPixel = (pixel: Scalar) => maxScalar - pixel;
   return pointwiseRaw(image, transformPixel);
 };
 

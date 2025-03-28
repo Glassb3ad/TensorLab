@@ -1,7 +1,6 @@
 import { haveEqualShape } from '@tensor/predicates/shapePredicates';
-import { Tensor } from '@tensor/types';
+import { Scalar, Tensor } from '@tensor/types';
 import { tensorGuard } from '@tensor/tensorGuard';
-import { Scalar } from '../../../dist';
 
 const dotProductRec = (t1: Tensor, t2: Tensor): Scalar => {
   if (Array.isArray(t1) && Array.isArray(t2)) {

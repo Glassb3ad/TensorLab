@@ -9,5 +9,5 @@ const getShapeRec = (tensor: Tensor, shape: Shape = []): Shape => {
   return getShapeRec(tensor[0], [...shape, tensor.length]);
 };
 
-const getShapeRaw = (tensor: Tensor) => getShapeRec(tensor);
+export const getShapeRaw = (tensor: Tensor) => getShapeRec(tensor);
 export const getShape = tensorGuard(getShapeRaw);
