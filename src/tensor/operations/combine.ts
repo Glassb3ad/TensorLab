@@ -10,7 +10,7 @@ const combineRawRec = (t1: Tensor, t2: Tensor, combineScalars: (x: Scalar, y: Sc
   return combineScalars(t1 as Scalar, t2 as Scalar);
 };
 
-const combineRaw = (t1: Tensor, t2: Tensor, combineScalars: (x: Scalar, y: Scalar) => Scalar): Tensor => {
+export const combineRaw = (t1: Tensor, t2: Tensor, combineScalars: (x: Scalar, y: Scalar) => Scalar): Tensor => {
   if (!haveEqualShape(t1, t2)) {
     throw new Error('tensors have different shapes');
   }
